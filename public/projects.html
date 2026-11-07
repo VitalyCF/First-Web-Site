@@ -35,6 +35,7 @@
       <div class="carousel-toolbar" hidden>
         <select class="slide-picker" aria-label="Choose a project">
           <option value="wordcards">AI Wordcards</option>
+          <option value="athens-quiz">A Kahoot-style quiz for Cloudflare customers in Athens</option>
           <option value="listening">A listening group for sellers</option>
           <option value="portfolio">This personal site</option>
         </select>
@@ -55,6 +56,16 @@
             <p>Take the English word <i>ship</i>, or <span lang="ru">корабль</span> in Russian. It sounds like the Russian word <span lang="ru">шип</span>, which means “thorn”. Imagine a ship sailing past with a giant rose thorn for a mast. The thorn gives you the sound, and the ship gives you the meaning.</p>
             <p>A scene like that sticks in my head much longer than a pair of words on a page. The hard part was coming up with a fresh association for every word. That’s what the AI helps me do. If you speak Russian, give it a try.</p>
             <a class="inline-link" href="https://app.kirshchenya.com/" rel="noopener noreferrer" target="_blank">Open AI Wordcards ↗</a>
+          </div>
+        </article>
+        <article class="slide" id="athens-quiz" aria-labelledby="athens-quiz-title">
+          <div class="catalogue-item">
+            <p class="topic">Peer Point Athens 2026</p>
+            <h2 id="athens-quiz-title">A Kahoot-style quiz for Cloudflare customers in Athens</h2>
+            <p>The secret to a good event? Great prizes. The tricky part is deciding who gets them when the budget won’t stretch to one for everyone. For our Cloudflare customer event in Athens, our marketing manager asked me to come up with a fun way to pick the winners.</p>
+            <p>We didn’t fancy paying for a Kahoot subscription, so I spent about twenty minutes and a few dollars vibe-coding our own quiz. The host puts a question on the big screen, everyone answers on their phone, and as soon as the round closes, up comes the leaderboard. It runs entirely on Cloudflare. A Durable Object keeps everyone on the same question and timer over WebSockets, which gives it that quick-fire Kahoot feel.</p>
+            <p>You’ll need a PIN from the host to join a live game. If you want to run one at your own event, grab the source, ask your coding agent to swap in your questions and deploy it on Cloudflare.</p>
+            <p><a class="inline-link" href="https://athens.cloudflareapp.app/" target="_blank" rel="noopener noreferrer">Open the quiz ↗</a> · <a class="inline-link" href="https://github.com/VitalyCF/peer-point-athens-quiz-portfolio" target="_blank" rel="noopener noreferrer">Source code on GitHub ↗</a></p>
           </div>
         </article>
         <article class="slide" id="listening" aria-labelledby="listening-title">
