@@ -1,0 +1,7 @@
+.wrangler/
+node_modules/
+.env
+.env.*
+.dev.vars*
+media-upload/
+*.zip

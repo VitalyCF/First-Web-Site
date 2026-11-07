@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <meta name="description" content="I keep notes here on conversations with customers, things we try as a team and what I learn along the way.">
+  <meta property="og:title" content="Work Journal | Vitaly Kirshchenya">
+  <meta property="og:url" content="https://kirshchenya.com/work-notes">
+  <title>Work Journal | Vitaly Kirshchenya</title>
+  <link rel="icon" href="./favicon.svg">
+  <link rel="preload" href="./fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+  <script src="./carousel.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="mast">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="Vitaly Kirshchenya, home"><span class="monogram">VK</span>Vitaly Kirshchenya</a>
+      <nav id="nav" aria-label="Main navigation">
+        <a href="/#story">Experience</a><a href="/projects">Projects</a><a href="/work-notes" aria-current="page">Work Journal</a><a href="/outside-work">Outside Work</a>
+        <a href="https://nl.linkedin.com/in/vkirshch" rel="me noopener noreferrer" target="_blank">LinkedIn <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="controls">
+        <button id="theme" type="button" aria-label="Switch to dark theme" title="Switch theme"><span class="half" aria-hidden="true"></span></button>
+        <button id="menu" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+      </div>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+<header class="page-intro"><h1>Work Journal</h1><p>I keep notes here on conversations with customers, things we try as a team and what I learn along the way.</p></header>
+    <section class="carousel note-carousel" aria-label="Journal entries">
+      <div class="carousel-toolbar" hidden>
+        <select class="slide-picker" aria-label="Choose a journal entry">
+          <option value="practice">How a technique becomes your own</option>
+          <option value="workshop">A workshop needs a decision</option>
+        </select>
+        <div class="slide-steps">
+          <span class="slide-count" aria-hidden="true"></span>
+          <button class="step" type="button" data-step="-1" aria-label="Previous entry" aria-controls="slides">←</button>
+          <button class="step" type="button" data-step="1" aria-label="Next entry" aria-controls="slides">→</button>
+        </div>
+        <span class="sr-only" role="status" aria-atomic="true"></span>
+      </div>
+      <div id="slides" class="slides">
+        <article class="slide" id="practice" aria-labelledby="practice-title">
+<div class="essay"><p class="topic">Management</p>
+<h2 id="practice-title">How a technique becomes your own</h2>
+<p>We listen to interviews and discuss books as a team. What interests me about Chris Voss’s work is how small the unit of practice can be. Pick one thing, such as mirroring a customer’s last few words, try it in a real conversation, then come back and describe what happened.</p>
+<p>The first deliberate attempt often sounds awkward. That’s worth saying out loud as a manager. In a debrief, I’d ask what the customer said next and whether the AE heard something they would otherwise have missed. A technique earns its place when it helps you listen.</p></div>
+        </article>
+        <article class="slide" id="workshop" aria-labelledby="workshop-title">
+<div class="essay"><p class="topic">Technology</p>
+<h2 id="workshop-title">A workshop needs a decision</h2>
+<p>Before a technical workshop, I want us to finish a sentence with the customer. “At the end of this session, we should be able to decide whether…” Sometimes even a partial answer reveals that the person who runs the service needs to be there. Sometimes we discover that a short conversation about the current setup would be more useful than a demo.</p>
+<p>Take an authentication change. A happy-path login is easy to demonstrate. What happens to a user whose session expires halfway through an important task? Who gets the support ticket? Agreeing on one awkward case makes a test concrete and gives everyone a sensible way to judge the result.</p></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap foot"><span>Vitaly Kirshchenya · Amsterdam</span><a href="https://nl.linkedin.com/in/vkirshch" rel="noopener noreferrer" target="_blank">Connect on LinkedIn ↗</a><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "kirshchenya-portfolio",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "kirshchenya.com", "custom_domain": true }],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": ["/media/*"]
+  },
+  "r2_buckets": [
+    { "binding": "PHOTOS", "bucket_name": "kirshchenya-portfolio-media" }
+  ],
+  "observability": { "enabled": true, "head_sampling_rate": 0.05 }
+}

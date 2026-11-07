@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <meta name="description" content="Small things I build or practise to understand an idea for myself. A few live in code. Others are part of my week.">
+  <meta property="og:title" content="Projects | Vitaly Kirshchenya">
+  <meta property="og:url" content="https://kirshchenya.com/projects">
+  <title>Projects | Vitaly Kirshchenya</title>
+  <link rel="icon" href="./favicon.svg">
+  <link rel="preload" href="./fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+  <script src="./carousel.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="mast">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="Vitaly Kirshchenya, home"><span class="monogram">VK</span>Vitaly Kirshchenya</a>
+      <nav id="nav" aria-label="Main navigation">
+        <a href="/#story">Experience</a><a href="/projects" aria-current="page">Projects</a><a href="/work-notes">Work Journal</a><a href="/outside-work">Outside Work</a>
+        <a href="https://nl.linkedin.com/in/vkirshch" rel="me noopener noreferrer" target="_blank">LinkedIn <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="controls">
+        <button id="theme" type="button" aria-label="Switch to dark theme" title="Switch theme"><span class="half" aria-hidden="true"></span></button>
+        <button id="menu" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+      </div>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+<header class="page-intro"><h1>Projects</h1><p>Small things I build or practise to understand an idea for myself. A few live in code. Others are part of my week.</p></header>
+    <section class="carousel project-carousel" aria-label="Project gallery">
+      <div class="carousel-toolbar" hidden>
+        <select class="slide-picker" aria-label="Choose a project">
+          <option value="wordcards">AI Wordcards</option>
+          <option value="listening">A listening group for sellers</option>
+          <option value="portfolio">This personal site</option>
+        </select>
+        <div class="slide-steps">
+          <span class="slide-count" aria-hidden="true"></span>
+          <button class="step" type="button" data-step="-1" aria-label="Previous project" aria-controls="slides">←</button>
+          <button class="step" type="button" data-step="1" aria-label="Next project" aria-controls="slides">→</button>
+        </div>
+        <span class="sr-only" role="status" aria-atomic="true"></span>
+      </div>
+      <div id="slides" class="slides">
+        <article class="slide" id="wordcards" aria-labelledby="wordcards-title">
+          <div class="catalogue-item">
+            <p class="topic">Language learning</p>
+            <h2 id="wordcards-title">AI Wordcards</h2>
+            <p>I learned English in three months using Yagodkin’s method, just before I started a master’s programme taught in English. I’d always wanted an app that would let me learn new words that way, so I built AI Wordcards.</p>
+            <p>The aim is to learn up to 100 foreign words in an hour. For each new word, find a word in your own language that sounds like it. Then picture the two meanings together in a single scene.</p>
+            <p>Take the English word <i>ship</i>, or <span lang="ru">корабль</span> in Russian. It sounds like the Russian word <span lang="ru">шип</span>, which means “thorn”. Imagine a ship sailing past with a giant rose thorn for a mast. The thorn gives you the sound, and the ship gives you the meaning.</p>
+            <p>A scene like that sticks in my head much longer than a pair of words on a page. The hard part was coming up with a fresh association for every word. That’s what the AI helps me do. If you speak Russian, give it a try.</p>
+            <a class="inline-link" href="https://app.kirshchenya.com/" rel="noopener noreferrer" target="_blank">Open AI Wordcards ↗</a>
+          </div>
+        </article>
+        <article class="slide" id="listening" aria-labelledby="listening-title">
+<div class="catalogue-item"><p class="topic">Team learning</p><h2 id="listening-title">A listening group for sellers</h2><p>We pick an interview, listen to it separately and compare what we heard. The part I care about comes afterwards. Each person can try a single idea during the week and bring the experience back. Negotiation techniques are especially interesting to practise this way.</p><a class="inline-link" href="/work-notes#practice">Read about my approach to practice →</a></div>
+        </article>
+        <article class="slide" id="portfolio" aria-labelledby="portfolio-title">
+<div class="catalogue-item"><p class="topic">Web design</p><h2 id="portfolio-title">This personal site</h2><p>I wanted one place for my career, working notes and the parts of my life that rarely fit on LinkedIn. The site is plain HTML, CSS and JavaScript.</p></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap foot"><span>Vitaly Kirshchenya · Amsterdam</span><a href="https://nl.linkedin.com/in/vkirshch" rel="noopener noreferrer" target="_blank">Connect on LinkedIn ↗</a><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>
