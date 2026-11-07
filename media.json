@@ -1,4 +1,8 @@
 {
+  "amsterdam-without-vices.76d1c1770af9181f.webp": {
+    "sha256": "76d1c1770af9181f66b76a09a83623c3cf32f8c378714e74c02c950768a747bc",
+    "bytes": 399650
+  },
   "anna-in-the-mountains.8465625ca47ccb63.webp": {
     "sha256": "8465625ca47ccb63472ff00545d9fe12f6d56bd4b5203b77ad8b4612081e41d4",
     "bytes": 210622
@@ -38,6 +42,10 @@
   "taylor-acoustic.5bbeb2378c92dc73.webp": {
     "sha256": "5bbeb2378c92dc73e5ba948a3757052130009640f60a4a4cf8cbe0c8a55a1b07",
     "bytes": 142346
+  },
+  "thumb-amsterdam-without-vices.4f134ca9f4349119.webp": {
+    "sha256": "4f134ca9f4349119f5b5bf6a40501142d8bf3ac04439719d590f51542838f775",
+    "bytes": 4626
   },
   "thumb-anna-in-the-mountains.0b910f500970c704.webp": {
     "sha256": "0b910f500970c7048ae2e5a13eebd90954e5f3131c4924867a586dcfd3f4403a",

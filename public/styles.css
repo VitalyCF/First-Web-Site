@@ -188,6 +188,9 @@ small { display: block; font-size: 13px; margin-top: 5px; }
 .photo-carousel .slide { padding-top: 14px; }
 .journal-copy { max-width: 67ch; margin: 22px auto 0; }
 .journal-copy h2 { margin-bottom: 14px; }
+.journal-copy > h3 { margin-block: 24px 8px; font-size: clamp(21px, 2vw, 28px); font-weight: 550; line-height: 1.25; }
+.journal-copy > .hygge-note { color: var(--muted); margin-bottom: 20px; }
+.journal-copy > ul { padding-inline-start: 1.4em; font-size: clamp(16px,1.2vw,19px); line-height: 1.66; }
 @media (max-width: 760px) {
   .directory { grid-template-columns: 1fr; }
   .directory > a { padding: 20px 0; }
