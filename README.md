@@ -1,5 +1,7 @@
 # kirshchenya.com
 
+[Open the production site](https://kirshchenya.com/)
+
 Vitaly Kirshchenya’s personal site. The production source lives in this repository. The four English pages, styles, scripts and local Inter font are in `public/`. The site preserves the original portfolio, projects, work journal and photo carousel.
 
 ## Publishing
