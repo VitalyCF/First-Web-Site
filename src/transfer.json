@@ -1,0 +1,9 @@
+{
+  "expires": 1794070142015,
+  "publicKey": {
+    "kty": "EC",
+    "x": "Ga_H3aR6rUeBgMP1qbK2bDgw24kW7-xLFeID9efXWpM",
+    "y": "w13jRWqQl_08-FKfTQK2u4U1tOVS7L8iCPz7EhgbpNg",
+    "crv": "P-256"
+  }
+}
