@@ -7,6 +7,7 @@
     "dev": "npx --yes wrangler@4.158.0 dev",
     "check:bundle": "npx --yes wrangler@4.158.0 deploy --dry-run",
     "deploy": "npx --yes wrangler@4.158.0 deploy",
+    "postdeploy": "npm run check:live",
     "check:live": "node scripts/check-live.js"
   },
   "engines": { "node": ">=22" }

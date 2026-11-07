@@ -6,7 +6,7 @@ Vitaly Kirshchenya’s personal site. The production source lives in this reposi
 
 ## Publishing
 
-Cloudflare Workers Builds connects this repository’s `main` branch to the `kirshchenya-portfolio` Worker. The build command is `npm test` and the deploy command is `npm run deploy`. The repository pins the Wrangler CLI. After a push, check the build log in Cloudflare and run `npm run check:live` to verify the four pages and the SHA-256 digest of every published image.
+Cloudflare Workers Builds connects this repository’s `main` branch to the `kirshchenya-portfolio` Worker. The build command is `npm test` and the deploy command is `npm run deploy`. The repository pins the Wrangler CLI. After deployment, the pipeline checks the four live pages and verifies the SHA-256 digest of every published image. The results appear in the Cloudflare build log. To repeat the check, run `npm run check:live`.
 
 Edit page copy in `public/`, run `npm test`, then commit it to GitHub. Cloudflare serves existing static assets directly. Requests to `/media/` are handled by the Worker through the private R2 binding `PHOTOS`. The only custom domain declared in `wrangler.jsonc` is the apex. The separate Wordcards application owns `app.kirshchenya.com`.
 

@@ -1,11 +1,8 @@
 import media from "../media.json" with { type: "json" };
 
-import { receivePhoto } from "./migrate.js";
-
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (url.pathname.startsWith("/__photo-transfer/")) return receivePhoto(request, env, url.pathname.slice("/__photo-transfer/".length));
     if (!url.pathname.startsWith("/media/")) return env.ASSETS.fetch(request);
 
     if (request.method !== "GET" && request.method !== "HEAD") {
