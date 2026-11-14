@@ -1,0 +1,38 @@
+---
+import Layout from '../components/Layout.astro';
+import { PortableText } from 'emdash/ui';
+import { published } from '../published';
+const [home, roles] = await Promise.all([published('homepage'), published('experience')]);
+const intro = home.find(entry => entry.id === 'intro')?.data ?? home[0]?.data;
+roles.sort((a,b) => (a.data.position ?? 0) - (b.data.position ?? 0));
+---
+<Layout title="Vitaly Kirshchenya | Sales leadership &amp; technology" description="Vitaly Kirshchenya’s portfolio and experience.">
+  <main id="main" class="wrap">
+    <section class="hero" aria-labelledby="name">
+      <div class="intro">
+        <p class="location"><span aria-hidden="true"></span>{intro?.location}</p>
+        <h1 id="name">{intro?.given_name}<br />{intro?.surname}</h1>
+        <h2 class="about-title">{intro?.title}</h2>
+        <div class="about-copy"><PortableText value={intro?.content ?? []} /></div>
+        <div class="actions"><a class="primary" href="#story">Experience <span aria-hidden="true">↓</span></a><a class="textlink" href="https://nl.linkedin.com/in/vkirshch" rel="noopener noreferrer" target="_blank">LinkedIn <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <a class="music-link" href="/outside-work" aria-label="Explore my life outside work">
+        <div class="guitar-frame">
+          <img class="guitar" src="/media/taylor-acoustic.5bbeb2378c92dc73.webp" width="1536" height="1024" alt="Natural wood Taylor acoustic guitar" fetchpriority="high">
+        </div>
+        <div class="caption"><span>Outside work</span><span class="muted">Music, mountains & miles <b aria-hidden="true">↗</b></span></div>
+      </a>
+    </section>
+    <section class="spread" id="story" aria-labelledby="experience-title">
+      <h2 id="experience-title">Experience</h2>
+      <div class="rows">
+        {roles.map(({data}, index) => <details open={index === 0}><summary><span class="date">{data.period}</span><span><strong>{data.title}</strong><small>{data.organization}</small></span></summary><div class="detail"><PortableText value={data.content ?? []}/></div></details>)}
+      </div>
+    </section>
+    <div class="directory">
+      <a id="thinking" href="/work-notes"><div><h2 id="work">Work Journal</h2><p>How I work and lead a team, in my own words. Some ideas are mine, others I’ve borrowed and put into practice.</p></div><span aria-hidden="true">↗</span></a>
+      <a id="projects" href="/projects"><div><h2>Projects</h2><p>A collection of projects I’ve worked on, including a few I’m still building.</p></div><span aria-hidden="true">↗</span></a>
+      <a id="outside" href="/outside-work"><div><h2>Outside Work</h2><p>From our canals in Amsterdam to the Paris Olympics with Anna, and back home to Fly.</p></div><span aria-hidden="true">↗</span></a>
+    </div>
+  </main>
+</Layout>

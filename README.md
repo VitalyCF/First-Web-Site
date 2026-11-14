@@ -1,14 +1,10 @@
 # kirshchenya.com
 
-[Open the production site](https://kirshchenya.com/)
+The personal portfolio runs on Astro, EmDash and Cloudflare Workers. Open `/admin` to edit Home, Experience, Work Journal, Projects and Outside Work. Publish an entry to make it visible. The Experience display order is ascending, with the first role expanded. The three editorial sections show recent publications first and support the original fragment links.
 
-Vitaly Kirshchenya’s personal site. The production source lives in this repository. The four English pages, styles, scripts and local Inter font are in `public/`. The site preserves the original portfolio, projects, work journal and photo carousel.
+## Deploying
 
-## Publishing
-
-Cloudflare Workers Builds connects this repository’s `main` branch to the `kirshchenya-portfolio` Worker. The build command is `npm test` and the deploy command is `npm run deploy`. The repository pins the Wrangler CLI. After deployment, the pipeline checks the four live pages and verifies the SHA-256 digest of every published image. The results appear in the Cloudflare build log. To repeat the check, run `npm run check:live`.
-
-Edit page copy in `public/`, run `npm test`, then commit it to GitHub. Cloudflare serves existing static assets directly. Requests to `/media/` are handled by the Worker through the private R2 binding `PHOTOS`. The only custom domain declared in `wrangler.jsonc` is the apex. The separate Wordcards application owns `app.kirshchenya.com`.
+Cloudflare Workers Builds runs the tests on main and deploys with `npm run deploy`. Use Node 24.22.1 and `npm ci`. The deployment binds D1 for editorial content, KV for sessions, R2 for CMS uploads and the existing PHOTOS bucket. Before the owner registers the first passkey, the site serves its original pages and the setup flow requires the private initial setup credentials. Include the portfolio content when applying the seed. The initial setup guard stops applying once setup is complete. Do not reapply the seed over edited entries.
 
 ## Photos
 
@@ -18,4 +14,4 @@ For a new image, run `node scripts/prepare-photo.js /absolute/path/to/photo.webp
 
 ## Local checks
 
-Use Node.js 22.16 or later. Run `npm test` to check internal links and the R2 serving path. `npm run check:bundle` runs a Wrangler dry run. `npm run dev` serves the application locally.
+Run `npm test`, `npm run check:bundle` and `npm run dev` as needed. The postdeploy check covers the four pages and all original image digests.

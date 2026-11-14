@@ -1,0 +1,38 @@
+---
+const { title, description, carousel = false } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <meta name="description" content={description}>
+  <meta property="og:title" content={title}>
+  <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href}>
+  <title>{title}</title>
+  <link rel="icon" href="/favicon.svg">
+  <link rel="preload" href="/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+  <script is:inline src="/script.js" defer></script>
+{carousel && <script is:inline src="/carousel.js" defer></script>}
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="mast">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="Vitaly Kirshchenya, home"><span class="monogram">VK</span>Vitaly Kirshchenya</a>
+      <nav id="nav" aria-label="Main navigation">
+        <a href="/#story">Experience</a><a href="/projects" aria-current={Astro.url.pathname.startsWith("/projects") ? "page" : undefined}>Projects</a><a href="/work-notes" aria-current={Astro.url.pathname.startsWith("/work-notes") ? "page" : undefined}>Work Journal</a><a href="/outside-work" aria-current={Astro.url.pathname.startsWith("/outside-work") ? "page" : undefined}>Outside Work</a>
+        <a href="https://nl.linkedin.com/in/vkirshch" rel="me noopener noreferrer" target="_blank">LinkedIn <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="controls">
+        <button id="theme" type="button" aria-label="Switch to dark theme" title="Switch theme"><span class="half" aria-hidden="true"></span></button>
+        <button id="menu" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+      </div>
+    </div>
+  </header>
+<slot />
+  <footer class="wrap foot"><span>Vitaly Kirshchenya · Amsterdam</span><a href="https://nl.linkedin.com/in/vkirshch" rel="noopener noreferrer" target="_blank">Connect on LinkedIn ↗</a><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>
