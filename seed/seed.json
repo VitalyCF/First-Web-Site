@@ -1,0 +1,2404 @@
+{
+  "version": "1",
+  "meta": {
+    "name": "Vitaly Kirshchenya portfolio",
+    "description": "All existing portfolio entries"
+  },
+  "settings": {
+    "title": "Vitaly Kirshchenya"
+  },
+  "collections": [
+    {
+      "slug": "journal",
+      "label": "Work Journal",
+      "labelSingular": "Journal entry",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "topic",
+          "label": "Topic",
+          "type": "string"
+        },
+        {
+          "slug": "photo",
+          "label": "Photo",
+          "type": "image"
+        },
+        {
+          "slug": "caption",
+          "label": "Caption",
+          "type": "string"
+        },
+        {
+          "slug": "alt",
+          "label": "Photo description",
+          "type": "string"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ],
+      "urlPattern": "/work-notes/{slug}"
+    },
+    {
+      "slug": "projects",
+      "label": "Projects",
+      "labelSingular": "Project",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "topic",
+          "label": "Topic",
+          "type": "string"
+        },
+        {
+          "slug": "photo",
+          "label": "Photo",
+          "type": "image"
+        },
+        {
+          "slug": "caption",
+          "label": "Caption",
+          "type": "string"
+        },
+        {
+          "slug": "alt",
+          "label": "Photo description",
+          "type": "string"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ],
+      "urlPattern": "/projects/{slug}"
+    },
+    {
+      "slug": "outside",
+      "label": "Outside Work",
+      "labelSingular": "Story",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "topic",
+          "label": "Topic",
+          "type": "string"
+        },
+        {
+          "slug": "photo",
+          "label": "Photo",
+          "type": "image"
+        },
+        {
+          "slug": "caption",
+          "label": "Caption",
+          "type": "string"
+        },
+        {
+          "slug": "alt",
+          "label": "Photo description",
+          "type": "string"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ],
+      "urlPattern": "/outside-work/{slug}"
+    },
+    {
+      "slug": "experience",
+      "label": "Experience",
+      "labelSingular": "Role",
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "period",
+          "label": "Period",
+          "type": "string"
+        },
+        {
+          "slug": "organization",
+          "label": "Company and location",
+          "type": "string"
+        },
+        {
+          "slug": "position",
+          "label": "Display order",
+          "type": "integer"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ]
+    },
+    {
+      "slug": "homepage",
+      "label": "Home",
+      "labelSingular": "Introduction",
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "location",
+          "label": "Location",
+          "type": "string"
+        },
+        {
+          "slug": "given_name",
+          "label": "Given_Name",
+          "type": "string"
+        },
+        {
+          "slug": "surname",
+          "label": "Surname",
+          "type": "string"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ]
+    }
+  ],
+  "content": {
+    "journal": [
+      {
+        "id": "workshop",
+        "slug": "workshop",
+        "status": "published",
+        "data": {
+          "title": "A workshop needs preparation",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "By the time we walk into a customer’s office for a technical workshop, I hope we’ve already done most of the useful work. The day itself matters for a different reason. We get to sit down with people we’ve spent hours talking to, meet some of them in person for the first time and spend a day working together.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "We try to get as many people involved on the customer’s side as we can. We start with the people we already know and ask who else we should speak to. On our side, we bring in a few specialists who can get into the details with them. The agenda has to answer two questions. What does the customer want to hear from us? And what do we think is worth bringing to their attention? When we’ve taken their questions seriously, we’ve earned the time to put a few ideas of our own on the table.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "The preparation starts with technical discovery, one customer team at a time. We ask them to walk us through the infrastructure they look after, how it connects to the rest and where it gives them trouble. I want to hear about those problems even when they have nothing to do with our product. If we can explain something on the call, we explain it. If we can help fix a problem or get a configuration working, we do it together there and then. Nobody needs to wait three weeks for a workshop to get an answer we can give them today.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k7",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": "How many of those sessions? I’d aim for at least five, with five different teams. I’d rather do twenty-five. Each team sees a different part of the same infrastructure, and I want us to understand how the pieces fit together. Then we take a pause, compare notes and decide what deserves the room’s time. That’s when we put the workshop together and go deliver it.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k9",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k8",
+                  "_type": "span",
+                  "text": "After the visit, it’s easy to come home pleased with how the day went. There’s still a job to do. We follow up on the questions we left open, the work we agreed to do and the opportunities we uncovered together. The difference now is that the specialists on both sides know each other. They’ve already worked through real problems together, they know who to call, and they have something they both want to get done.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "topic": "Technology"
+        }
+      },
+      {
+        "id": "practice",
+        "slug": "practice",
+        "status": "published",
+        "data": {
+          "title": "How a technique becomes your own",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "What I love most about sales is how many chances you get to practise. If I’m trying to get better at asking follow-up questions, I can try one on my next call. If it comes out a little awkwardly, the cost is usually small. I can listen to what the customer says, carry on with the conversation and have another go on the next call.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "That’s how I like to approach sales. I think of it as a set of skills I can work on individually. I find a lot of them in books. Sometimes I’m halfway through a chapter and a conversation I had months ago suddenly makes sense. My first thought is usually, “I do this too, but mostly by accident.”",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k7",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "When my team and I discussed ",
+                  "marks": []
+                },
+                {
+                  "_key": "k5",
+                  "_type": "span",
+                  "text": "The Like Switch",
+                  "marks": []
+                },
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": " and a couple of podcasts about it, I heard much the same thing in our one-to-ones. Several people recognised something they already did with customers. They just hadn’t had a name for it. So before moving on to the next podcast, I asked everyone to bring back one example. Who were you talking to? What were you trying to do? What did you actually say, and what happened next? I was just as interested in the attempts that felt awkward as the ones that went well.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k12",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k8",
+                  "_type": "span",
+                  "text": "Take mirroring, one of the ideas Chris Voss talks about. A customer says, “Getting everyone to agree is the hard part.” You pick up on “getting everyone to agree?” and give them a moment to go on. You might already do that when you’re curious. Try it on purpose for the first time and you can suddenly hear yourself doing it. If you want to hear Voss talk about negotiation, we listened to ",
+                  "marks": []
+                },
+                {
+                  "_key": "k10",
+                  "_type": "span",
+                  "text": "his conversation on The Knowledge Project",
+                  "marks": [
+                    "k9"
+                  ]
+                },
+                {
+                  "_key": "k11",
+                  "_type": "span",
+                  "text": ".",
+                  "marks": []
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "k9",
+                  "_type": "link",
+                  "href": "https://fs.blog/knowledge-project-podcast/chris-voss/"
+                }
+              ]
+            },
+            {
+              "_key": "k14",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k13",
+                  "_type": "span",
+                  "text": "Once you’ve read about a technique, you first start catching yourself using it by accident. Then you notice when someone uses it with you. The first few times you try it on purpose, it can feel a little awkward. But after a few conversations, there’s a moment when it comes out naturally. From then on, it’s in your toolbox. You can reach for it whenever you think it’ll help.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "topic": "Management"
+        }
+      },
+      {
+        "id": "how-i-manage",
+        "slug": "how-i-manage",
+        "status": "published",
+        "data": {
+          "title": "The kind of leader I want to be",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "When I became a manager, I called the man who’d been commercial director at Cisco Russia when I joined. I still remember how I felt coming out of his Friday team meetings. It was Friday, I’d just sat through a meeting, and somehow I wanted to get back to work. Even when a decision from headquarters made no sense to me, he could explain why we were doing it in a way that made me want to give it a go. I used to replay recordings of those meetings to figure out how he did it.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k6",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "I called to ask for advice. He suggested I read Ashley Goodall, a former senior vice president of human resources at Cisco. I often think about his essay ",
+                  "marks": []
+                },
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "A Study That Changed How I Think About Leadership",
+                  "marks": [
+                    "k3",
+                    "em"
+                  ]
+                },
+                {
+                  "_key": "k5",
+                  "_type": "span",
+                  "text": ". And forgive the repetition, but it really did change how I think about leadership.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "k3",
+                  "_type": "link",
+                  "href": "https://ashleygoodall.substack.com/p/a-study-that-changed-how-i-think"
+                }
+              ]
+            },
+            {
+              "_key": "k8",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k7",
+                  "_type": "span",
+                  "text": "When we talk about what motivates us, we tend to put things like learning a new skill, doing useful work, or feeling proud of something we’ve done ahead of a pay rise or a promotion. Ask us what motivates someone else, though, and suddenly money and recognition move to the top of the list. The less we know the person, the more likely we are to make that assumption.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k10",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k9",
+                  "_type": "span",
+                  "text": "I can see how easily that turns into a carrot-and-stick approach to management. Hit your number and you’ll get a bonus. Close this deal and you’ll be on stage with the CEO. Both might sound great. How much do I actually know about what makes the work worth doing for the person I’m saying this to?",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k12",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k11",
+                  "_type": "span",
+                  "text": "I’m still learning to recognise what motivates each person on my team. From the outside, it’s hard to see how much someone enjoys figuring out a difficult problem for a customer. That satisfaction can be a much stronger motivator than money or recognition.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k14",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k13",
+                  "_type": "span",
+                  "text": "I believe people want to do work they’re proud of, and my job is to give them the resources, coaching and motivation they need, clear what’s in their way, and trust them to decide how to do the work.",
+                  "marks": [
+                    "strong"
+                  ]
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k16",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k15",
+                  "_type": "span",
+                  "text": "I’m still friends with all my former managers, and I’ve borrowed something from each of them. Elsewhere in the industry, I’ve also seen people run teams on the assumption that everyone will slack off unless someone keeps them in line. I’ve seen managers shout at someone who was already struggling, or insist on approving decisions the person closest to the customer could have made themselves. One mistake I particularly want to avoid is changing my mind in five minutes about something that will take somebody else two days to redo.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k18",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k17",
+                  "_type": "span",
+                  "text": "Those examples come to mind when I’m about to ask for another spreadsheet or tell someone they’re behind on a KPI. What decision will I actually make with that spreadsheet? If someone’s behind, do they know what to try next, and is there something I can take off their plate so they have time to try it?",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k20",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k19",
+                  "_type": "span",
+                  "text": "I get decisions wrong fairly often. Sometimes the decision is fine and the way I handle it is what I regret. I’d like the people on my team to feel comfortable telling me either way. When someone does, I try to listen, even when it’s uncomfortable, and change what I do the next time. I have plenty to learn, but I know the kind of leader I want to become.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "topic": "Management"
+        }
+      }
+    ],
+    "projects": [
+      {
+        "id": "portfolio",
+        "slug": "portfolio",
+        "status": "published",
+        "data": {
+          "title": "This personal site",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I wanted one place for my career, working notes and the parts of my life that rarely fit on LinkedIn. The site is plain HTML, CSS and JavaScript.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "topic": "Web design"
+        }
+      },
+      {
+        "id": "listening",
+        "slug": "listening",
+        "status": "published",
+        "data": {
+          "title": "A listening group for sellers",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "We pick an interview, listen to it separately and compare what we heard. The part I care about comes afterwards. Each person can try a single idea during the week and bring the experience back. Negotiation techniques are especially interesting to practise this way.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k4",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k3",
+                  "_type": "span",
+                  "text": "Read about my approach to practice →",
+                  "marks": [
+                    "k2"
+                  ]
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "k2",
+                  "_type": "link",
+                  "href": "/work-notes#practice"
+                }
+              ]
+            }
+          ],
+          "topic": "Team learning"
+        }
+      },
+      {
+        "id": "athens-quiz",
+        "slug": "athens-quiz",
+        "status": "published",
+        "data": {
+          "title": "A Kahoot-style quiz for Cloudflare customers in Athens",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "The secret to a good event? Great prizes. The tricky part is deciding who gets them when the budget won’t stretch to one for everyone. For our Cloudflare customer event in Athens, our marketing manager asked me to come up with a fun way to pick the winners.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "We didn’t fancy paying for a Kahoot subscription, so I spent about twenty minutes and a few dollars vibe-coding our own quiz. The host puts a question on the big screen, everyone answers on their phone, and as soon as the round closes, up comes the leaderboard. It runs entirely on Cloudflare. A Durable Object keeps everyone on the same question and timer over WebSockets, which gives it that quick-fire Kahoot feel.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "You’ll need a PIN from the host to join a live game. If you want to run one at your own event, grab the source, ask your coding agent to swap in your questions and deploy it on Cloudflare.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k11",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k7",
+                  "_type": "span",
+                  "text": "Open the quiz ↗",
+                  "marks": [
+                    "k6"
+                  ]
+                },
+                {
+                  "_key": "k8",
+                  "_type": "span",
+                  "text": " · ",
+                  "marks": []
+                },
+                {
+                  "_key": "k10",
+                  "_type": "span",
+                  "text": "Source code on GitHub ↗",
+                  "marks": [
+                    "k9"
+                  ]
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "k6",
+                  "_type": "link",
+                  "href": "https://athens.cloudflareapp.app/"
+                },
+                {
+                  "_key": "k9",
+                  "_type": "link",
+                  "href": "https://github.com/VitalyCF/peer-point-athens-quiz-portfolio"
+                }
+              ]
+            }
+          ],
+          "topic": "Peer Point Athens 2026"
+        }
+      },
+      {
+        "id": "wordcards",
+        "slug": "wordcards",
+        "status": "published",
+        "data": {
+          "title": "AI Wordcards",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I learned English in three months using Yagodkin’s method, just before I started a master’s programme taught in English. I’d always wanted an app that would let me learn new words that way, so I built AI Wordcards.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "The aim is to learn up to 100 foreign words in an hour. For each new word, find a word in your own language that sounds like it. Then picture the two meanings together in a single scene.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k11",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "Take the English word ",
+                  "marks": []
+                },
+                {
+                  "_key": "k5",
+                  "_type": "span",
+                  "text": "ship",
+                  "marks": [
+                    "em"
+                  ]
+                },
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": ", or ",
+                  "marks": []
+                },
+                {
+                  "_key": "k7",
+                  "_type": "span",
+                  "text": "корабль",
+                  "marks": []
+                },
+                {
+                  "_key": "k8",
+                  "_type": "span",
+                  "text": " in Russian. It sounds like the Russian word ",
+                  "marks": []
+                },
+                {
+                  "_key": "k9",
+                  "_type": "span",
+                  "text": "шип",
+                  "marks": []
+                },
+                {
+                  "_key": "k10",
+                  "_type": "span",
+                  "text": ", which means “thorn”. Imagine a ship sailing past with a giant rose thorn for a mast. The thorn gives you the sound, and the ship gives you the meaning.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k13",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k12",
+                  "_type": "span",
+                  "text": "A scene like that sticks in my head much longer than a pair of words on a page. The hard part was coming up with a fresh association for every word. That’s what the AI helps me do. If you speak Russian, give it a try.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k16",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k15",
+                  "_type": "span",
+                  "text": "Open AI Wordcards ↗",
+                  "marks": [
+                    "k14"
+                  ]
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "k14",
+                  "_type": "link",
+                  "href": "https://app.kirshchenya.com/"
+                }
+              ]
+            }
+          ],
+          "topic": "Language learning"
+        }
+      }
+    ],
+    "outside": [
+      {
+        "id": "amsterdam-without-vices",
+        "slug": "amsterdam-without-vices",
+        "status": "published",
+        "data": {
+          "title": "Amsterdam without vices",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I wrote this on the flight home from Copenhagen to Amsterdam. I’ve travelled halfway around the world, but this was the most memorable trip I’ve ever taken. I wanted to write it all down while I could still remember every detail.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "h3",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "Daydreaming in Hygge*",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "*Hygge is a Danish word that describes a cosy, contented mood evoked by comfort and conviviality.",
+                  "marks": [
+                    "em"
+                  ]
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k7",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": "Good morning, Denmark! We are landing today in the beautiful city of Copenhagen.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k8",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "Let’s try to find out the secret of Danish happiness together.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_key": "k9",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "Maybe it is in Danish hot dogs, cosy shops, attractive beer bars, or tidiness and cleanliness?",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_key": "k10",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "Stop! We haven’t left the airport yet.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_key": "k11",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": "But I already love it.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_key": "k13",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k12",
+                  "_type": "span",
+                  "text": "Copenhagen surprises you with its tidiness on the streets, in the metro, and everywhere you go. The metro, without drivers, as in the UAE, takes you to the city centre in 20 minutes, as the whole city has 600 thousand inhabitants. One switch to an intercity train, 15 minutes, and we are in a small village near Copenhagen. 300 metres from the North Sea and 50 metres from the train station was our hygge place, with a lot of small details like yoga books, photos of a bike in the mountains on the Scandinavian part of the map, small Lego aeroplanes with a pilot, a guitar, and a cloudy bed.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k15",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k14",
+                  "_type": "span",
+                  "text": "After dreaming like a baby on the soft bed, we woke up refreshed and ready for breakfast.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k17",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k16",
+                  "_type": "span",
+                  "text": "A 15-minute train ride and several hundred metres through the old orange military barracks, Nyboder, and you get to Atelier September. With a small queue outside the doors, you can already anticipate the fresh bread and whipped butter you will put in your mouth in several minutes. The mashed egg, butter, cheese, and bread make your morning, and the almond pancakes with blueberry jam finish it. We walk around this city that looks like Amsterdam without its vices: beautiful architecture, green parks, and castles, but no garbage, whores, or marijuana smell. Catholic cathedrals and old palaces are everywhere around the city, and we stumbled upon a carriage parade that looked like the royal family out for a walk.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k19",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k18",
+                  "_type": "span",
+                  "text": "The most memorable adventure happened when we decided to go to the Louisiana Museum. We jumped on the train, which had been delayed for an hour, with an additional hundred people waiting for it, placed ourselves in the vestibule, and the temperature began to climb like an alpinist in the mountains: slowly but steadily. The train stopped in places it shouldn't have and moved more slowly than Anna on a bike. We grasped at every piece of air that entered when the doors opened. After this journey was over, we walked into the museum of all museums in the world, so the ride was worth it. A deceptively small building welcomed us into a huge state of wonder and joy. We started walking around the yard with a view of the sea, beautiful trees, and sculptures.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k21",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k20",
+                  "_type": "span",
+                  "text": "Coming to the end of the fence, we found a panorama room, which was the last piece of the exhibition. We found “Memory Lost” by photographer Nan Goldin. This work revolves around abuse, friendship, love, deprivation, and loss. Her work splashes out these feelings, as the artist herself has battled opioid drug addiction and almost died.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k23",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k22",
+                  "_type": "span",
+                  "text": "The mirror room, with lights hanging down around you, blinking in different colours, water on the floor reflecting those lights along with the ceiling and walls, and the whole performance teleports you to Times Square or Tokyo. After that, we entered a room that is difficult to describe in words: The Visitors, a title taken from the 1981 album by ABBA. Nine friends playing together from separate rooms in a grand old house, the historic Rokeby Farm in upstate New York. They are connected via headphones, and the work, filmed on nine cameras, was taken in a single shot. Everyone had one or two musical instruments: guitar, grand piano, cello, drums, banjo, accordion. The Visitors perform a 64-minute song full of love and loathing, forcing you to cry.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k25",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k24",
+                  "_type": "span",
+                  "text": "We hid in the corner, sat on the floor, and listened to that music, keeping an eye on the cigar-smoking pianist and Kjartansson playing the guitar in a bathtub full of foam. I imagined this experience under the influence of MDMA or acid and can’t resist coming here again one day.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k27",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k26",
+                  "_type": "span",
+                  "text": "We saw everything in this museum: the guitar musical ballet “No Tomorrow”, performed by eight girls with Taylor guitars, the same as I have at home. You hear the tension of these strings and fall under the influence of this music, with dances and charming voices. A lot of sorrow: a Swedish band playing a three-minute song, “Sorrow”, for six hours nonstop. We found Georgian artist Niko Pirosmani and several rooms devoted to his works, exhibiting delicious Georgian food, simple peasants, and beautiful views of mountains, villages, and cities.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k29",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k28",
+                  "_type": "span",
+                  "text": "We had dinner in the restaurant “Scandinavian Pain” with scallops, flounder, and some other fish, with bread, butter, and wine, which were so delicious that you were ready to accept punishment for gluttony. After that, we listened to a live interview with Haruki Murakami, and the most memorable question was: “Haruki, you have written a lot of books. How do you force yourself to write so much, and what do you do if you don’t want to write?” Haruki paused for a moment and said: “First of all, if I don’t want to write, I don’t write. Why would you do something you don’t want to do?”",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k31",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k30",
+                  "_type": "span",
+                  "text": "In the backyard, we found a terrifying performance by a Danish actress. She was dressed in ancient animal skins, reading some old manuscripts in Danish with sound effects, and she sounded like the devil himself. Meanwhile, she completely undressed, but what you saw scared the shit out of you rather than causing sexual arousal because of the overall atmosphere. After dawn, we sat outside on the grass and listened to a thrilling band called LOWLY, with two female vocalists with amazing voices.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k33",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k32",
+                  "_type": "span",
+                  "text": "I’m afraid there is no museum in the world that will beat this Louisiana Museum of Modern Art, created by Danish entrepreneur Knud W. Jensen in 1958. Tusind tak, Knud!",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k35",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k34",
+                  "_type": "span",
+                  "text": "The last day in Denmark started with fog and the absence of the sun. But we decided to stick to the plan and went to the shore of the North Sea to have breakfast there. While we were sitting on the pier and enjoying Danish pastries, several adult Danish couples came onto the piers, took off all their clothes, and went swimming. Without thinking for too long, and not wanting to stand out from the crowd, we followed their lead and swam naked in the cold North Sea in the morning.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k37",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k36",
+                  "_type": "span",
+                  "text": "After checking out of our Airbnb, we went to an extremely unusual place for Denmark. This place is inside Copenhagen, and when you leave the metro, you notice that something is different. The streets are dirty, and the crowd is bizarre. You start to notice more vices right outside the metro station in Christiania.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k39",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k38",
+                  "_type": "span",
+                  "text": "After World War II, this land was abandoned. In 1971, a commune of hippies illegally settled here and created a squat. They announced the independence of this land from the Danish government and created a self-regulated commune called Christiania. The idea of this commune was that they could live without government, a kind of piece of anarchy inside the kingdom. Christiania consists of 15 communes. Every commune nominates a delegate who represents the inhabitants of this commune on the community council. They rule the whole territory and govern relations with Denmark. There is no tax on this territory, and all profits and land belong to the commune, where the commune council decides how to spend them. They had their own currency, but nobody used it, and it became rather a toy for collectors. Denmark tried to get rid of the squatters dozens of times but always failed. Once, the commune even mobilised its own army to resist the government of Denmark. Since then, the Danish police have not regulated it, which has created a lot of drug dealing. Christiania has a long history with drugs. In the 70s, it was easy to get heroin here. There have been a lot of raids by the Danish police on this place, gang shootings, and even a grenade explosion, but in the end, this place still exists. There is only one street where you can buy and sell drugs legally, but only soft drugs. “Pusher Street” is the place where there are several makeshift stalls that look as if several adults decided to play a game of “supermarket”. They put up a piece of wood with a hole, like a counter, drew a sign with the name, and listed the whole menu on a piece of paper.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k41",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k40",
+                  "_type": "span",
+                  "text": "It looks like you are walking around a film studio in Hollywood where they are shooting a low-budget film about Amsterdam, based on the stories of a homeless person who was passing through there three years ago and can’t remember all the details, but the smell he knows for sure.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k43",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k42",
+                  "_type": "span",
+                  "text": "This place is amazing. People here resisted the government and chased their dream of freedom and equality. This place is European socialism.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k45",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k44",
+                  "_type": "span",
+                  "text": "Of course, all the punks, rockers, and other dregs of society could be found here as well.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k47",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k46",
+                  "_type": "span",
+                  "text": "We sent postcards and went back to the airport.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k49",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k48",
+                  "_type": "span",
+                  "text": "Denmark is the second-happiest country in the world in all happiness rankings. Why? Because it is hard to be unhappy here!",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Copenhagen, 18 August 2023",
+          "alt": "Wooden sailboats moored along a waterfront lined with colourful houses.",
+          "photo": {
+            "id": "amsterdam-without-vices.76d1c1770af9181f.webp",
+            "src": "/media/amsterdam-without-vices.76d1c1770af9181f.webp",
+            "width": 1152,
+            "height": 1536,
+            "alt": "Wooden sailboats moored along a waterfront lined with colourful houses."
+          }
+        }
+      },
+      {
+        "id": "fly",
+        "slug": "fly",
+        "status": "published",
+        "data": {
+          "title": "And this is Fly",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "Picking just one photo of Fly was almost impossible. I’ve got about a million, and he’s ridiculously cute in every single one.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "Before we got him, my biggest worry was that he’d wake me up early on rainy mornings and I’d have to take him out. They say dogs pick up their owners’ habits. Lucky for me, Fly picked up Anna’s. He’ll happily sleep till noon.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "If I get up and move to the sofa, he follows me into the living room, climbs on top of me and goes straight back to sleep. Some mornings I have to wake him up just to get him outside. Same goes for Anna…",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Happy Fly",
+          "alt": "Fly, a cream-coloured golden retriever, lying on the grass with his head upside down.",
+          "photo": {
+            "id": "fly-on-the-grass.469ec8fb2e9d9108.webp",
+            "src": "/media/fly-on-the-grass.469ec8fb2e9d9108.webp",
+            "width": 1152,
+            "height": 1536,
+            "alt": "Fly, a cream-coloured golden retriever, lying on the grass with his head upside down."
+          }
+        }
+      },
+      {
+        "id": "music",
+        "slug": "music",
+        "status": "published",
+        "data": {
+          "title": "Back home with the Taylor",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I’ve got my Taylor acoustic, a piano and a drum kit at home. I never went to music school, so I play all three as an amateur. I always enjoy myself. Anyone within earshot? That probably depends on the day. I suspect the neighbours like me a little less when I’m on the drums. 😅",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k9",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "When I settle in with a book, it’s usually science fiction. ",
+                  "marks": []
+                },
+                {
+                  "_key": "k3",
+                  "_type": "span",
+                  "text": "Dune",
+                  "marks": []
+                },
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": " and ",
+                  "marks": []
+                },
+                {
+                  "_key": "k5",
+                  "_type": "span",
+                  "text": "The Three-Body Problem",
+                  "marks": []
+                },
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": " are two of my favourites. I love ",
+                  "marks": []
+                },
+                {
+                  "_key": "k7",
+                  "_type": "span",
+                  "text": "Hard to Be a God",
+                  "marks": []
+                },
+                {
+                  "_key": "k8",
+                  "_type": "span",
+                  "text": " and everything else the Strugatsky brothers wrote. Isaac Asimov is another favourite, and the list goes on.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k11",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k10",
+                  "_type": "span",
+                  "text": "I’ve loved science fiction since I was little. Maybe that’s why I still read about physics for fun. Give me a book about the Big Bang or black holes and I’m happy. Give me one about atoms, quarks and gluons and I’m just as happy. I find it as hard to wrap my head around what’s inside a proton as I do the size of the universe.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k13",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k12",
+                  "_type": "span",
+                  "text": "Take a carbon atom in the wood of my guitar. Imagine blowing it up to the size of a concert hall. The nucleus would be smaller than a guitar pick, yet it would hold almost all the atom’s mass. The electron cloud would stretch across the hall. That gives you a sense of how much room there is outside that tiny nucleus.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k15",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k14",
+                  "_type": "span",
+                  "text": "Now zoom in on a single proton. Add up the rest masses of its three valence quarks and you’ve accounted for only a small fraction of the proton’s mass. Most of it comes from the energy of the quarks and gluons moving and interacting inside it. The same goes for a neutron. So when I pick up my guitar, most of the mass I feel in my hands comes from that energy. And so does most of the mass of my hands. I can read that sentence twice and still find it ridiculous.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k19",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k16",
+                  "_type": "span",
+                  "text": "I even bought Anna a book called ",
+                  "marks": []
+                },
+                {
+                  "_key": "k17",
+                  "_type": "span",
+                  "text": "The Universe Explained with a Cookie",
+                  "marks": []
+                },
+                {
+                  "_key": "k18",
+                  "_type": "span",
+                  "text": ", and she liked it too. Her favourite thing about quarks is their names. Up and down sound reasonable enough. Then you get strange and charm, and if you go by the old names, truth and beauty. Imagine coming home from the lab and saying, “Still looking for truth and beauty, love.” Physicists are having way too much fun. Anna still suspects physicists made the whole thing up because they couldn’t figure out what was going on. I’ll give her this much: there’s still plenty to figure out.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k21",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k20",
+                  "_type": "span",
+                  "text": "As for who gets to be the most charming quark in our family, Anna has some competition. Meet Fly.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Taylor acoustic guitar.",
+          "alt": "A studio-style illustration of a natural wood Taylor acoustic guitar.",
+          "photo": {
+            "id": "taylor-acoustic.5bbeb2378c92dc73.webp",
+            "src": "/media/taylor-acoustic.5bbeb2378c92dc73.webp",
+            "width": 1536,
+            "height": 1024,
+            "alt": "A studio-style illustration of a natural wood Taylor acoustic guitar."
+          }
+        }
+      },
+      {
+        "id": "theatre",
+        "slug": "theatre",
+        "status": "published",
+        "data": {
+          "title": "A night at the ballet",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "Yep… a country boy from Taganrog, at the ballet. I’ll never forget my first time…",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "Anna took me to see Nacho Duato’s rather unusual production of ",
+                  "marks": []
+                },
+                {
+                  "_key": "k3",
+                  "_type": "span",
+                  "text": "Romeo and Juliet",
+                  "marks": []
+                },
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": " at the Mikhailovsky Theatre in Saint Petersburg. Being a student had its perks. Somehow we got front-row seats in the dress circle for next to nothing. Fantastic seats. I put on my most respectable clothes, and there we were.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k7",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": "The curtains haven’t even opened yet. The orchestra starts playing, and out come two guys in skin-tight black and white tights. They start dancing, jumping and running around the stage in front of the curtains.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k9",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k8",
+                  "_type": "span",
+                  "text": "First I smile. Then I press my lips together, but little bursts of laughter keep getting out. By now I’ve got tears in my eyes and people in the rows around us are giving me some very stern “Shhh!”s. I look over at Anna. She’s trying just as hard to keep a straight face, and that’s entirely my fault. We were mortified.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k11",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k10",
+                  "_type": "span",
+                  "text": "It’s still one of the best productions I’ve ever seen. Going to see a performance together has become one of my favourite ways to spend an evening.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Ballet at the Bolshoi Theatre, 1 June",
+          "alt": "Anna and Vitaly taking a mirror selfie under the chandeliers in a red and gold foyer.",
+          "photo": {
+            "id": "ballet-with-anna.b7137147d9b95721.webp",
+            "src": "/media/ballet-with-anna.b7137147d9b95721.webp",
+            "width": 1152,
+            "height": 1536,
+            "alt": "Anna and Vitaly taking a mirror selfie under the chandeliers in a red and gold foyer."
+          }
+        }
+      },
+      {
+        "id": "anna",
+        "slug": "anna",
+        "status": "published",
+        "data": {
+          "title": "Meet Anna",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "She’s the love of my life. We met in 2011, standing in line to move into the student dorms at Saint Petersburg State University. We started dating later and we’ve been inseparable ever since.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "Anna loves drums, dancing and me. The record player was her idea, too. Once we had one, we started collecting vinyl together.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "You already know she got me into the Olympics. It’s funny how much of who I am today started with something Anna loved first. The next one might surprise you.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Jean-Claude Van Damme cosplay",
+          "alt": "Anna doing the splits on a wooden fence in the snow, wearing bright orange ski trousers.",
+          "photo": {
+            "id": "anna-in-the-mountains.8465625ca47ccb63.webp",
+            "src": "/media/anna-in-the-mountains.8465625ca47ccb63.webp",
+            "width": 1536,
+            "height": 1152,
+            "alt": "Anna doing the splits on a wooden fence in the snow, wearing bright orange ski trousers."
+          }
+        }
+      },
+      {
+        "id": "olympics",
+        "slug": "olympics",
+        "status": "published",
+        "data": {
+          "title": "Turns out I love watching, too",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "By now you’ve probably guessed I like sport. What I didn’t know was how much I’d love the Olympics. Anna talked me into going to the Summer Games in Paris in 2024. I came home an Olympic fan.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "In 2026, Anna and I went to Italy for the Winter Olympics. I really hope we make it to Los Angeles in 2028.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Olympic Games 2024, Paris",
+          "alt": "Vitaly and Anna in front of the Olympic rings at the Paris Summer Games.",
+          "photo": {
+            "id": "paris-olympic-rings.7faef0efdab3459d.webp",
+            "src": "/media/paris-olympic-rings.7faef0efdab3459d.webp",
+            "width": 1536,
+            "height": 1152,
+            "alt": "Vitaly and Anna in front of the Olympic rings at the Paris Summer Games."
+          }
+        }
+      },
+      {
+        "id": "race",
+        "slug": "race",
+        "status": "published",
+        "data": {
+          "title": "About that finish-line photo",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "On 30 August 2026, I finished IRONMAN 70.3 Zell am See-Kaprun in Austria after a 1.9 km swim, a 90 km ride and a half marathon.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "So why am I wearing a bike helmet at the finish line if the last leg was a run? I can be a bit absent-minded. I forgot to take it off after the ride and ran all 21 km in it.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "Half the fun was coming up with replies for everyone who pointed it out.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k8",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": "“Mate, you’re still wearing your helmet!”",
+                  "marks": []
+                },
+                {
+                  "_key": "k7",
+                  "_type": "span",
+                  "text": "“I know. Safety first!”",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Zell am See-Kaprun, 30 August 2026.",
+          "alt": "Vitaly smiling at the finish in his bike helmet, with his race bib and finisher’s medal.",
+          "photo": {
+            "id": "finish-portrait.1e574786c33c64cb.webp",
+            "src": "/media/finish-portrait.1e574786c33c64cb.webp",
+            "width": 527,
+            "height": 1000,
+            "alt": "Vitaly smiling at the finish in his bike helmet, with his race bib and finisher’s medal."
+          }
+        }
+      },
+      {
+        "id": "water",
+        "slug": "water",
+        "status": "published",
+        "data": {
+          "title": "Back on a board",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I love boards. Longboards, snowboards, wakeboards, anyboards. The cool thing about wakesurfing is that the boat makes the wave. You can surf on flat water in Amsterdam, in Cyprus, or even in Moscow.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "Back in Amsterdam, most weeks it’s basketball on Mondays and Wednesdays, cycling or running. I added swimming to the mix for a triathlon, which is how I ended up with the finish-line photo on the next slide.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Cyprus, Wakesurf",
+          "alt": "Vitaly riding a board barefoot on a small wave, with the coastline behind him.",
+          "photo": {
+            "id": "riding-the-wake.44fcf69ac3dc0040.webp",
+            "src": "/media/riding-the-wake.44fcf69ac3dc0040.webp",
+            "width": 1152,
+            "height": 1536,
+            "alt": "Vitaly riding a board barefoot on a small wave, with the coastline behind him."
+          }
+        }
+      },
+      {
+        "id": "hiking",
+        "slug": "hiking",
+        "status": "published",
+        "data": {
+          "title": "On foot in the mountains",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "This is what I love about hiking. I can stop here and take my time looking across the valley. Can you spot both waterfalls? The lower one is half hidden by the trees.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "I’ve hiked in Yosemite, Sequoia National Park and the Grand Canyon, and in the Dolomites and other parts of the Alps. I just love walking up and down mountains. The views still take my breath away. You’d think I was making up for how flat Amsterdam is, but I loved hiking long before I moved here. One day I’ll move to the mountains and stay for a few years.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Yosemite, August 2021",
+          "alt": "Two waterfalls among granite cliffs and pine trees in a mountain valley.",
+          "photo": {
+            "id": "hiking-waterfalls.c704d9b022210687.webp",
+            "src": "/media/hiking-waterfalls.c704d9b022210687.webp",
+            "width": 1152,
+            "height": 1536,
+            "alt": "Two waterfalls among granite cliffs and pine trees in a mountain valley."
+          }
+        }
+      },
+      {
+        "id": "slope",
+        "slug": "slope",
+        "status": "published",
+        "data": {
+          "title": "Looking the other way",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "Here’s what I mean. That little bit of board at the bottom is mine, and somewhere down there is the line I get to ride. In summer, I ride the flat routes around Amsterdam on my road bike or my gravel bike. I’m planning to buy a mountain bike, too. For now, I explore the mountain trails on foot.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Dolomites, Italy, 2026",
+          "alt": "A snowboard and boots in the foreground, with a forested valley and snowy ridges below.",
+          "photo": {
+            "id": "view-from-the-board.2d41870b6a9a4b77.webp",
+            "src": "/media/view-from-the-board.2d41870b6a9a4b77.webp",
+            "width": 1536,
+            "height": 1152,
+            "alt": "A snowboard and boots in the foreground, with a forested valley and snowy ridges below."
+          }
+        }
+      },
+      {
+        "id": "away",
+        "slug": "away",
+        "status": "published",
+        "data": {
+          "title": "Usually, I look more like this",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "Helmet, goggles, gloves. This is closer to my idea of what to wear in the snow. I love Amsterdam, but a snowboard is a pretty good reason to leave a city as flat as this one. The view changes quite a bit once that board is under my feet.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "At the summit with my snowboard.",
+          "alt": "Vitaly in a helmet and winter gear, holding his snowboard on a snowy summit.",
+          "photo": {
+            "id": "snowboard-summit.8bc25149c6d3e61d.webp",
+            "src": "/media/snowboard-summit.8bc25149c6d3e61d.webp",
+            "width": 1536,
+            "height": 1152,
+            "alt": "Vitaly in a helmet and winter gear, holding his snowboard on a snowy summit."
+          }
+        }
+      },
+      {
+        "id": "cold",
+        "slug": "cold",
+        "status": "published",
+        "data": {
+          "title": "That explains the missing shirt",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "The only thing I don’t like about Amsterdam is the weather. To get through the rainy autumns and windy winters, I borrowed an idea from a rather famous Dutchman, Wim Hof, and started taking cold showers. That might explain why I look so happy standing shirtless in the snow. Most of my mountain photos involve a few more layers.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Winter Olympic Games 2026, Italy",
+          "alt": "Vitaly smiling, shirtless, in a snowy valley between mountains.",
+          "photo": {
+            "id": "snowy-valley.408a0428d68729c4.webp",
+            "src": "/media/snowy-valley.408a0428d68729c4.webp",
+            "width": 1152,
+            "height": 1536,
+            "alt": "Vitaly smiling, shirtless, in a snowy valley between mountains."
+          }
+        }
+      },
+      {
+        "id": "week",
+        "slug": "week",
+        "status": "published",
+        "data": {
+          "title": "Home in Amsterdam",
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "For two years, this was the view from my window. Almost every evening I’d sit there and watch the sun go down behind the windmill. I never got tired of that sky.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "I cycle everywhere in Amsterdam. I don’t use public transport here, and I love that even an ordinary ride takes me along the canals and past the narrow houses that made me fall for this city.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "You might not believe me, but every time I ride across a bridge over the Amstel, I look down the river and think, “I’m so lucky to be right here, right now.”",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k7",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": "Moving here also gave me a habit that’s a little harder to explain.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "caption": "Sunset from my window in Amsterdam.",
+          "alt": "A windmill silhouetted against a deep orange sky beside the water in Amsterdam.",
+          "photo": {
+            "id": "windmill-at-sunset.81264c799dbb7b4f.webp",
+            "src": "/media/windmill-at-sunset.81264c799dbb7b4f.webp",
+            "width": 1536,
+            "height": 1152,
+            "alt": "A windmill silhouetted against a deep orange sky beside the water in Amsterdam."
+          }
+        }
+      }
+    ],
+    "experience": [
+      {
+        "id": "role-1",
+        "slug": "role-1",
+        "status": "published",
+        "data": {
+          "title": "Senior Sales Manager",
+          "period": "Current role",
+          "organization": "Cloudflare · Amsterdam",
+          "position": 10,
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I moved into sales management in January 2026 with two account executives and three open roles. We hired new people and merged with other teams. We’re closing out the year as a close-knit group of 13.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "I set the growth strategy for Cloudflare’s Digital Native business in our markets across Europe and Central Asia. I decide where we focus our time, from getting to know promising companies early to finding new ways to help existing customers.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "My coaching focuses on sales maturity, technical acumen and curiosity. I want each account executive to make their own call on a deal, understand how the customer’s product works and ask a better question when the first answer leaves something unclear.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k7",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": "As an AE, I could only speak to so many customers in a week. The biggest surprise in management has been how much I enjoy seeing someone take an idea that worked for me, make it their own and use it with a customer I’ll never meet. The best part is watching them succeed and thinking I might have helped a little.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      },
+      {
+        "id": "role-2",
+        "slug": "role-2",
+        "status": "published",
+        "data": {
+          "title": "Senior Territory Account Executive",
+          "period": "Sep 2022 – Jan 2026",
+          "organization": "Cloudflare · Amsterdam",
+          "position": 20,
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I spent just over three years as an account executive at Cloudflare, developing new business across Central Asia, the Caucasus and Southern Europe. I was promoted to Senior Territory Account Executive in July 2024.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "I made President’s Club three years in a row (2023–2025) and won the Million Dollar Award and the Top MM AE Award (Q2 2024).",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "Cisco gave me a solid foundation in sales. Cloudflare taught me the rest. My background in IT infrastructure, networking and security shapes how I sell. I’m as comfortable discussing security vulnerabilities with an engineer as I am talking to a CEO about how AI could transform their business.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k7",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k6",
+                  "_type": "span",
+                  "text": "By then, I felt I’d figured out how to sell. I moved into management because I wanted to help other people find their own way of doing it.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      },
+      {
+        "id": "role-3",
+        "slug": "role-3",
+        "status": "published",
+        "data": {
+          "title": "Account Manager",
+          "period": "Aug 2018 – Sep 2022",
+          "organization": "Cisco · Moscow",
+          "position": 30,
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I managed Cisco’s relationships with the largest of Russia’s metals groups. In my first two years as an account manager, I developed new business and grew existing accounts across the Volga region, southern Russia and the Urals.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      },
+      {
+        "id": "role-4",
+        "slug": "role-4",
+        "status": "published",
+        "data": {
+          "title": "Associate Sales Representative",
+          "period": "Jul 2017 – Aug 2018",
+          "organization": "Cisco · Netherlands",
+          "position": 40,
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "I joined the Cisco Sales Associates Program in the Netherlands, where I studied networking and worked alongside engineers and sales colleagues.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "That year was a turning point in my life. I met some of my closest friends there, along with people who became my mentors. They opened my eyes to possibilities I’d never considered.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      },
+      {
+        "id": "role-5",
+        "slug": "role-5",
+        "status": "published",
+        "data": {
+          "title": "Education",
+          "period": "2011 – 2017",
+          "organization": "Information systems & business informatics",
+          "position": 50,
+          "content": [
+            {
+              "_key": "k1",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "MEng, Information System Management · FH Technikum Wien, 2016–2017",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k3",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "Master’s, Big Data Systems · Higher School of Economics, 2015–2017",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k5",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k4",
+                  "_type": "span",
+                  "text": "Bachelor’s, Business Informatics · Saint Petersburg State University, 2011–2015",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      }
+    ],
+    "homepage": [
+      {
+        "id": "intro",
+        "slug": "intro",
+        "status": "published",
+        "data": {
+          "title": "About this place",
+          "location": "Amsterdam, Netherlands",
+          "given_name": "Vitaly",
+          "surname": "Kirshchenya",
+          "content": [
+            {
+              "_key": "k4",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k0",
+                  "_type": "span",
+                  "text": "This is my personal site. You’ll find my CV, a few projects I’ve been working on, and some thoughts on work and life. There’s also a ",
+                  "marks": []
+                },
+                {
+                  "_key": "k2",
+                  "_type": "span",
+                  "text": "photo album",
+                  "marks": [
+                    "k1"
+                  ]
+                },
+                {
+                  "_key": "k3",
+                  "_type": "span",
+                  "text": " where you can meet Anna and Fly and find out why I ran a half marathon in a bike helmet.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "k1",
+                  "_type": "link",
+                  "href": "/outside-work"
+                }
+              ]
+            },
+            {
+              "_key": "k6",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k5",
+                  "_type": "span",
+                  "text": "I built this because AI lets me put a site together in a few hours. From there, the only real limit is what I can dream up for it.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_key": "k8",
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_key": "k7",
+                  "_type": "span",
+                  "text": "I’ve never had an Instagram or TikTok account. LinkedIn is about as social as I get online. I update my profile once in a while, and my agent posts the latest Cloudflare news there. The rest goes here.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,14 +1,33 @@
 {
   "name": "kirshchenya-portfolio",
+  "version": "0.0.3",
   "private": true,
   "type": "module",
+  "emdash": {
+    "label": "Kirshchenya portfolio",
+    "seed": "seed/seed.json"
+  },
   "scripts": {
-    "test": "node --test",
-    "dev": "npx --yes wrangler@4.158.0 dev",
-    "check:bundle": "npx --yes wrangler@4.158.0 deploy --dry-run",
-    "deploy": "npx --yes wrangler@4.158.0 deploy",
+    "dev": "astro dev",
+    "test": "node --test test/*.test.js",
+    "build": "astro build",
+    "deploy": "npm run build && wrangler deploy",
+    "check:bundle": "npm run build && wrangler deploy --dry-run",
     "postdeploy": "npm run check:live",
     "check:live": "node scripts/check-live.js"
   },
-  "engines": { "node": ">=22" }
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.3.1",
+    "@astrojs/react": "^7.0.0",
+    "@emdash-cms/cloudflare": "^1.3.0",
+    "astro": "^7.3.2",
+    "emdash": "^1.3.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@cloudflare/workers-types": "^5.20260820.1",
+    "wrangler": "^4.125.0"
+  }
 }

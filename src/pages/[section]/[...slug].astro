@@ -1,0 +1,42 @@
+---
+import { getEmDashEntry } from 'emdash';
+import { PortableText, Image } from 'emdash/ui';
+import Layout from '../../components/Layout.astro';
+import { published, sections } from '../../published';
+import thumbs from '../../content/thumbnails.json';
+const section = sections[Astro.params.section];
+if (!section) return new Response('Not found', {status:404});
+const slug = Astro.params.slug;
+let entries;
+if (slug) {
+  const {entry} = await getEmDashEntry(section.collection, slug);
+  if (!entry) return new Response('Not found', {status:404});
+  entries = [entry];
+} else {
+  entries = await published(section.collection);
+}
+const isPhoto = section.collection === 'outside';
+---
+<Layout title={(slug ? entries[0].data.title : section.title) + ' | Vitaly Kirshchenya'} description={section.description} carousel={entries.length > 0}>
+  <main id="main" class="wrap">
+    <header class="page-intro"><h1>{section.title}</h1><p>{section.description}</p></header>
+    {entries.length > 0 && <section class={'carousel ' + section.css} aria-label={section.title}>
+      <div class="carousel-toolbar" hidden>
+        {isPhoto ? <div class="photo-picker" role="group" aria-label="Choose a story">
+          {entries.map(({id,data}) => <button type="button" data-slide-to={id} aria-label={data.title} title={data.title}>
+            {data.photo?.src ? <img src={thumbs[data.photo.src] || data.photo.src} alt="" width="38" height="38" /> : data.photo ? <Image image={data.photo} alt="" /> : data.title}
+          </button>)}
+        </div> : <select class="slide-picker" aria-label="Choose an entry">{entries.map(({id,data}) => <option value={id}>{data.title}</option>)}</select>}
+        <div class="slide-steps"><span class="slide-count" aria-hidden="true"></span><button class="step" type="button" data-step="-1" aria-label="Previous entry" aria-controls="slides">←</button><button class="step" type="button" data-step="1" aria-label="Next entry" aria-controls="slides">→</button></div>
+        <span class="sr-only" role="status" aria-atomic="true"></span>
+      </div>
+      <div id="slides" class="slides">{entries.map(({id,data}) => <article class="slide" id={id} aria-labelledby={id+'-title'}>
+        {data.photo && <figure class="journal-photo">
+          {data.photo.src?.startsWith('/media/') ? <img src={data.photo.src} width={data.photo.width} height={data.photo.height} alt={data.alt || data.photo.alt || ''} /> : <Image image={data.photo} alt={data.alt || data.photo.alt || ''} />}
+          {data.caption && <figcaption>{data.caption}</figcaption>}
+        </figure>}
+        <div class={section.copy}>{data.topic && <p class="topic">{data.topic}</p>}<h2 id={id+'-title'}>{data.title}</h2><PortableText value={data.content ?? []} /></div>
+      </article>)}</div>
+    </section>}
+  </main>
+</Layout>

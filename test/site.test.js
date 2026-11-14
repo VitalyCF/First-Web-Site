@@ -4,11 +4,12 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import media from "../media.json" with { type: "json" };
 import worker from "../src/worker.js";
+const nameFor = path => path === "/" ? "index" : path.slice(1);
 
 test("all four pages link to published pages, local assets and registered photos", () => {
   const photos = new Set();
   for (const name of ["index", "projects", "work-notes", "outside-work"]) {
-    const page = readFileSync("public/" + name + ".html", "utf8");
+    const page = readFileSync("src/content/" + name + ".html", "utf8");
     assert.ok(page.includes("https://kirshchenya.com"));
     assert.ok(!page.includes("chatgpt.site"));
     for (const [, ref] of page.matchAll(/(?:href|src)="([^"]+)"/g)) {
@@ -21,7 +22,7 @@ test("all four pages link to published pages, local assets and registered photos
         continue;
       }
       const file = resolve("public", "." + (path === "/" ? "/index.html" : path));
-      assert.ok(existsSync(file) || existsSync(file + ".html"), ref);
+      assert.ok(existsSync(file) || existsSync(resolve("src/content", nameFor(path) + ".html")), ref);
     }
   }
   assert.deepEqual([...photos].sort(), Object.keys(media).sort());
