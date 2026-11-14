@@ -13,7 +13,7 @@
     "build": "astro build",
     "deploy": "npm run build && wrangler deploy",
     "check:bundle": "npm run build && wrangler deploy --dry-run",
-    "postdeploy": "npm run check:live",
+    "postdeploy": "node scripts/migrate-editorial.js && npm run check:live",
     "check:live": "node scripts/check-live.js"
   },
   "dependencies": {
