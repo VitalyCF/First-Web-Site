@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import {
   ArrowRight,
@@ -6,8 +5,6 @@ import {
   BookOpen,
   CalendarDays,
   Check,
-  CircleDot,
-  Flag,
   Focus,
   Guitar,
   Layers,
@@ -15,19 +12,14 @@ import {
   Plus,
   Sparkles,
 } from "lucide-react";
-import { finished, type Goal } from "../planner";
-
+import { areaName, finished, strategyName, type Goal } from "../planner";
 export function Masthead({
   view,
-  onCalendar,
-  onFocus,
-  onYear,
+  go,
   onNew,
 }: {
   view: string;
-  onCalendar: () => void;
-  onFocus: () => void;
-  onYear: () => void;
+  go: (v: string) => void;
   onNew: () => void;
 }) {
   return (
@@ -35,80 +27,74 @@ export function Masthead({
       <div className="mast-inner">
         <button
           className="wordmark"
-          onClick={onFocus}
-          aria-label="Курс, в фокусе"
+          onClick={() => go("focus")}
+          aria-label="Kurs, focus"
         >
           <span className="kursmark" aria-hidden="true">
             <i />
             <i />
             <i />
           </span>
-          Курс<span className="branddot">.</span>
+          Kurs<span className="branddot">.</span>
         </button>
-        <nav className="view-switch" aria-label="Вид журнала">
-          <button onClick={onFocus} aria-pressed={view === "overview"}>
-            <Focus size={16} />В фокусе
-          </button>
-          <button
-            onClick={onYear}
-            aria-pressed={["goals", "history", "week"].includes(view)}
-          >
-            <Layers size={16} />
-            Мой год
-          </button>
-          <button onClick={onCalendar} aria-pressed={view === "calendar"}>
-            <CalendarDays size={16} />
-            Календарь
-          </button>
+        <nav className="view-switch" aria-label="Journal view">
+          {[
+            ["focus", "Focus", Focus],
+            ["year", "Year", Layers],
+            ["calendar", "Calendar", CalendarDays],
+            ["review", "Review", BookOpen],
+          ].map(([v, label, Icon]: any) => (
+            <button key={v} aria-pressed={view === v} onClick={() => go(v)}>
+              <Icon size={15} />
+              {label}
+            </button>
+          ))}
         </nav>
         <button className="add-goal" onClick={onNew}>
           <Plus size={17} />
-          <span>Новая цель</span>
+          <span>New goal</span>
         </button>
       </div>
     </header>
   );
 }
-
-function Cover({ small = false }: { small?: boolean }) {
+function Cover() {
   return (
     <picture className="alpine" aria-hidden="true">
       <source
-        media="(max-width: 700px)"
+        media="(max-width:700px)"
         srcSet="/goals-media/alpine-ridge-800.webp"
       />
       <img
         src="/goals-media/alpine-ridge-1600.webp"
         alt=""
-        fetchPriority={small ? "auto" : "high"}
+        fetchPriority="high"
       />
     </picture>
   );
 }
-
 export function FocusSpread({
   goal,
   year,
   onOpen,
   onCreate,
-  onCoach,
   children,
 }: {
   goal?: Goal;
   year: number;
   onOpen: () => void;
   onCreate: () => void;
-  onCoach: () => void;
   children?: React.ReactNode;
 }) {
   return (
-    <section className="focus-spread">
+    <section>
       <header className="spread-title">
         <h1>
-          В фокусе<span>.</span>
+          In focus<span>.</span>
         </h1>
         <span className="journal-year">
-          Личный журнал <i /> {year}
+          Your personal journal <i />
+          {year}
         </span>
       </header>
       <div className="focus-pair">
@@ -118,15 +104,15 @@ export function FocusSpread({
           <div className="cover-meta">
             <span className="category-flag">
               <i />
-              {goal?.category || "Новая глава"}
+              {goal ? areaName(goal.category) : "A new chapter"}
             </span>
-            <span>{year}</span>
+            <span>{goal ? strategyName(goal.strategy) : year}</span>
           </div>
           <div className="cover-copy">
-            <h2>{goal?.title || "С чего начнётся твой год?"}</h2>
+            <h2>{goal?.title || "What would make this year yours?"}</h2>
             {goal?.target && <p className="cover-target">{goal.target}</p>}
             <button className="cover-link" onClick={goal ? onOpen : onCreate}>
-              {goal ? "Открыть цель" : "Создать цель"}
+              {goal ? "Open goal" : "Talk it through"}
               <ArrowUpRight size={17} />
             </button>
           </div>
@@ -135,15 +121,16 @@ export function FocusSpread({
           <article className="next-note">
             <div className="note-label">
               <span className="sun-dot" />
-              Первый шаг
+              Start with an idea
             </div>
-            <h2>Что хочется делать понемногу весь год?</h2>
+            <h2>You bring the idea. We work out the plan.</h2>
+            <p>
+              Talk with Katya about what matters, what is realistic, and how to
+              begin.
+            </p>
             <button className="action-ink" onClick={onCreate}>
-              Записать цель <Plus size={16} />
-            </button>
-            <button className="underlink" onClick={onCoach}>
               <Sparkles size={16} />
-              Придумать вместе с Катей
+              Create a goal together
             </button>
           </article>
         )}
@@ -151,47 +138,42 @@ export function FocusSpread({
     </section>
   );
 }
-
-function symbol(g: Goal) {
-  if (g.achieved) return Flag;
-  if (g.category === "Спорт") return Mountain;
-  if (g.category === "Обучение") return BookOpen;
-  if (g.category === "Хобби") return Guitar;
-  return CircleDot;
-}
-
-function GoalRow({ goal, onOpen }: { goal: Goal; onOpen: () => void }) {
-  const Icon = symbol(goal);
+function GoalRow({ g, open }: { g: Goal; open: (g: Goal) => void }) {
+  const Icon =
+    areaName(g.category) === "Sport"
+      ? Mountain
+      : areaName(g.category) === "Hobbies"
+        ? Guitar
+        : BookOpen;
   return (
-    <button className="journal-row" onClick={onOpen}>
+    <button className="journal-row" onClick={() => open(g)}>
       <span className="row-symbol">
-        <Icon size={19} strokeWidth={1.6} />
+        <Icon size={19} />
       </span>
       <span className="row-name">
-        <small>{goal.category}</small>
-        <b>{goal.title}</b>
+        <small>
+          {areaName(g.category)} · {strategyName(g.strategy)}
+        </small>
+        <b>{g.title}</b>
       </span>
       <span className="row-status">
-        {goal.achieved ? (
+        {g.achieved ? (
           <>
             <Check size={14} />
-            Достигнута
+            Achieved
           </>
-        ) : goal.focus ? (
-          <>
-            <Focus size={14} />В фокусе
-          </>
+        ) : g.status && g.status !== "active" ? (
+          g.status
+        ) : g.focus ? (
+          "In focus"
         ) : (
-          <>
-            {finished(goal)} / {goal.steps.length} шагов
-          </>
+          finished(g) + " / " + g.steps.length + " steps"
         )}
       </span>
       <ArrowUpRight size={18} />
     </button>
   );
 }
-
 export function YearStrip({
   goals,
   open,
@@ -204,20 +186,18 @@ export function YearStrip({
   return (
     <section className="year-strip">
       <header>
-        <h2>Цели года</h2>
+        <h2>This year's goals</h2>
         <button className="underlink" onClick={onYear}>
-          Весь год <ArrowRight size={15} />
+          The whole year
+          <ArrowRight size={15} />
         </button>
       </header>
-      <div>
-        {goals.slice(0, 3).map((g) => (
-          <GoalRow key={g.id} goal={g} onOpen={() => open(g)} />
-        ))}
-      </div>
+      {goals.slice(0, 4).map((g) => (
+        <GoalRow key={g.id} g={g} open={open} />
+      ))}
     </section>
   );
 }
-
 export function YearSpread({
   goals,
   year,
@@ -225,39 +205,33 @@ export function YearSpread({
   chooseYear,
   open,
   onCreate,
-  onCoach,
-  onHistory,
-  onWeek,
+  onReview,
 }: {
   goals: Goal[];
   year: number;
   years: number[];
-  chooseYear: (y: number) => void;
+  chooseYear: (n: number) => void;
   open: (g: Goal) => void;
   onCreate: () => void;
-  onCoach: () => void;
-  onHistory: () => void;
-  onWeek: () => void;
+  onReview: () => void;
 }) {
-  const [area, setArea] = useState("Все сферы");
-  const areas = Array.from(new Set(goals.map((g) => g.category)));
+  const [area, setArea] = useState("All areas");
   const shown = goals.filter(
-    (g) => area === "Все сферы" || g.category === area,
+    (g) => area === "All areas" || areaName(g.category) === area,
   );
   return (
     <section>
       <header className="spread-title">
         <h1>
-          Мой год<span>.</span>
+          My year<span>.</span>
         </h1>
         <label className="editionpick">
-          Год{" "}
+          Year
           <select
-            aria-label="Год журнала"
             value={year}
             onChange={(e) => {
               chooseYear(Number(e.target.value));
-              setArea("Все сферы");
+              setArea("All areas");
             }}
           >
             {years.map((y) => (
@@ -267,55 +241,50 @@ export function YearSpread({
         </label>
       </header>
       <div className="annual-cover">
-        <Cover small />
+        <Cover />
         <div className="cover-filter" />
         <strong>{year}</strong>
         <div className="annual-count">
           <span>
-            <b>{goals.length}</b>Всего целей
+            <b>{goals.length}</b>Goals
           </span>
           <span>
-            <b>{goals.filter((g) => g.achieved).length}</b>Достигнуто
+            <b>{goals.filter((g) => g.achieved).length}</b>Achieved
           </span>
         </div>
       </div>
       <div className="year-tools">
         <div className="areas">
-          {["Все сферы", ...areas].map((c) => (
+          {[
+            "All areas",
+            ...new Set(goals.map((g) => areaName(g.category))),
+          ].map((a) => (
             <button
-              key={c}
-              aria-pressed={c === area}
-              onClick={() => setArea(c)}
+              key={a}
+              aria-pressed={a === area}
+              onClick={() => setArea(a)}
             >
-              {c}
+              {a}
             </button>
           ))}
         </div>
-        <button className="underlink" onClick={onHistory}>
-          История <ArrowUpRight size={15} />
+        <button className="underlink" onClick={onReview}>
+          Reflect on {year}
+          <ArrowUpRight size={15} />
         </button>
       </div>
       {shown.map((g) => (
-        <GoalRow goal={g} key={g.id} onOpen={() => open(g)} />
+        <GoalRow key={g.id} g={g} open={open} />
       ))}
       {!shown.length && (
         <div className="annual-empty">
-          <h2>Каким ты хочешь запомнить {year}?</h2>
+          <h2>What do you want to make room for?</h2>
           <button className="action-ink" onClick={onCreate}>
-            <Plus size={16} />
-            Добавить цель
+            <Sparkles size={16} />
+            Think it through with Katya
           </button>
         </div>
       )}
-      <div className="year-links">
-        <button className="underlink" onClick={onCoach}>
-          <Sparkles size={16} />
-          Придумать цель с Катей
-        </button>
-        <button className="underlink" onClick={onWeek}>
-          Шаги недели <ArrowRight size={15} />
-        </button>
-      </div>
     </section>
   );
 }

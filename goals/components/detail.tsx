@@ -20,6 +20,7 @@ import {
   uid,
   weekKey,
   type Goal,
+  type Step,
 } from "../planner";
 export function Detail({
   g,
@@ -66,30 +67,26 @@ export function Detail({
         {g.achieved && (
           <span className="badge">
             <Check size={13} />
-            Достигнута
+            Achieved
           </span>
         )}
-        <button
-          className="iconbtn end"
-          onClick={onEdit}
-          title="Редактировать цель"
-        >
+        <button className="iconbtn end" onClick={onEdit} title="Edit goal">
           <Pencil size={17} />
         </button>
       </div>
       <div className="metrics">
         <div>
-          <small>Текущий результат</small>
-          <b>{currentValue(g) || "Пока нет записи"}</b>
+          <small>Current result</small>
+          <b>{currentValue(g) || "No result recorded"}</b>
         </div>
         <ArrowRight size={16} />
         <div>
-          <small>Цель</small>
-          <b>{g.target || "Можно задать критерий"}</b>
+          <small>Goal</small>
+          <b>{g.target || "Add a success criterion"}</b>
         </div>
       </div>
       <div className="headingrow">
-        <h3>План действий</h3>
+        <h3>Action plan</h3>
         <span className="micro">
           {finished(g)} / {g.steps.length}
         </span>
@@ -124,7 +121,7 @@ export function Detail({
               >
                 <input
                   maxLength={300}
-                  aria-label="Название шага"
+                  aria-label="Step title"
                   autoFocus
                   value={renamed}
                   onChange={(e) => rename(e.target.value)}
@@ -132,14 +129,14 @@ export function Detail({
                 <button
                   disabled={busy}
                   className="iconbtn"
-                  aria-label="Сохранить шаг"
+                  aria-label="Save step"
                 >
                   <Check size={16} />
                 </button>
                 <button
                   type="button"
                   className="iconbtn"
-                  aria-label="Удалить шаг"
+                  aria-label="Delete step"
                   onClick={async () => {
                     if (
                       await onChange({
@@ -157,36 +154,55 @@ export function Detail({
               <>
                 <button
                   className={"steptext " + (s.done ? "done" : "")}
-                  title="Редактировать шаг"
+                  title="Edit step"
                   onClick={() => {
                     setEditStep(s.id);
                     rename(s.title);
                   }}
                 >
                   {s.title}
+                  {s.milestone && <small>{s.milestone}</small>}
+                  {s.date && (
+                    <small>
+                      {s.date} {s.time}{" "}
+                      {s.minutes ? " · " + s.minutes + " min" : ""}
+                    </small>
+                  )}
                   {s.week && (
                     <small>
-                      Неделя с{" "}
-                      {new Date(s.week + "T12:00:00").toLocaleDateString("ru", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
+                      Week of{" "}
+                      {new Date(s.week + "T12:00:00").toLocaleDateString(
+                        "en-GB",
+                        {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        },
+                      )}
                     </small>
                   )}
                 </button>
+                <StepSchedule
+                  key={
+                    s.id + (s.date || "") + (s.time || "") + (s.minutes || "")
+                  }
+                  step={s}
+                  year={g.year}
+                  busy={busy}
+                  save={(props) => updateStep(s.id, props)}
+                />
                 <button
                   className={"iconbtn " + (s.week === weekKey() ? "on" : "")}
                   disabled={busy || g.year !== Number(day().slice(0, 4))}
                   title={
                     s.week === weekKey()
-                      ? "Убрать с этой недели"
-                      : "Взять на эту неделю"
+                      ? "Remove from this week"
+                      : "Add to this week"
                   }
                   aria-label={
                     s.week === weekKey()
-                      ? "Убрать с этой недели"
-                      : "Взять на эту неделю"
+                      ? "Remove from this week"
+                      : "Add to this week"
                   }
                   onClick={() =>
                     updateStep(s.id, {
@@ -220,21 +236,21 @@ export function Detail({
       >
         <input
           maxLength={300}
-          aria-label="Новый шаг"
+          aria-label="New step"
           value={step}
           onChange={(e) => setStep(e.target.value)}
-          placeholder="Добавить небольшой шаг"
+          placeholder="Add a concrete next step"
         />
         <button
           className="secondary"
           disabled={busy || !step.trim()}
-          aria-label="Добавить шаг"
+          aria-label="Add step"
         >
           <Plus size={17} />
         </button>
       </form>
       <section>
-        <h3>Дневник результата</h3>
+        <h3>Results journal</h3>
         {g.entries.length > 0 && (
           <ul className="entries">
             {g.entries.map((e, i) => (
@@ -266,7 +282,7 @@ export function Detail({
             <input
               required
               type="date"
-              aria-label="Дата результата"
+              aria-label="Result date"
               value={when}
               min={g.year + "-01-01"}
               max={g.year + "-12-31"}
@@ -274,14 +290,14 @@ export function Detail({
             />
             <input
               maxLength={400}
-              aria-label="Результат"
+              aria-label="Result"
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder="Что изменилось?"
+              placeholder="What changed?"
             />
           </div>
           <button className="secondary" disabled={busy || !value.trim()}>
-            Записать результат
+            Record result
           </button>
         </form>
       </section>
@@ -292,7 +308,7 @@ export function Detail({
           onClick={() => onChange({ ...g, achieved: !g.achieved })}
         >
           <CheckCheck size={16} />
-          {g.achieved ? "Вернуть в работу" : "Отметить достигнутой"}
+          {g.achieved ? "Reopen goal" : "Mark achieved"}
         </button>
         <button
           className="secondary"
@@ -300,11 +316,11 @@ export function Detail({
           onClick={onFocus}
         >
           <Star size={16} />
-          {g.focus ? "В фокусе" : "Поставить в фокус"}
+          {g.focus ? "In focus" : "Make this my focus"}
         </button>
         <button className="secondary" onClick={onAI}>
           <Sparkles size={16} />
-          Обсудить с Катей
+          Discuss with Katya
         </button>
         <button
           className="secondary"
@@ -313,25 +329,106 @@ export function Detail({
         >
           <Flag size={16} />
           {hasNext
-            ? "Уже есть в " + (g.year + 1)
-            : "Продолжить в " + (g.year + 1)}
+            ? "Already continued in " + (g.year + 1)
+            : "Continue in " + (g.year + 1)}
         </button>
       </div>
       {deleting ? (
         <div className="notice">
-          <p>Удалить цель за {g.year} год со всеми шагами и записями?</p>
+          <p>Delete this {g.year} goal and all its steps and entries?</p>
           <button className="danger" disabled={busy} onClick={onDelete}>
-            Удалить
+            Delete
           </button>{" "}
           <button className="link" onClick={() => del(false)}>
-            Отмена
+            Cancel
           </button>
         </div>
       ) : (
         <button className="link muted" onClick={() => del(true)}>
-          Удалить цель за этот год
+          Delete this goal
         </button>
       )}
     </div>
+  );
+}
+
+function StepSchedule({
+  step,
+  year,
+  busy,
+  save,
+}: {
+  step: Step;
+  year: number;
+  busy: boolean;
+  save: (p: Partial<Step>) => Promise<boolean>;
+}) {
+  const [date, setDate] = useState(step.date || ""),
+    [time, setTime] = useState(step.time || ""),
+    [minutes, setMinutes] = useState(step.minutes || 30);
+  return (
+    <details className="step-schedule">
+      <summary aria-label={"Schedule " + step.title}>
+        <CalendarDays size={16} />
+      </summary>
+      <form
+        className="schedule-fields"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const el = e.currentTarget.parentElement as HTMLDetailsElement;
+          if (await save({ date, time: date ? time : "", minutes, week: "" }))
+            el.open = false;
+        }}
+      >
+        <label>
+          Date
+          <input
+            type="date"
+            aria-label="Step date"
+            value={date}
+            min={year + "-01-01"}
+            max={year + "-12-31"}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </label>
+        <label>
+          Time in Amsterdam
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+          />
+        </label>
+        <label>
+          Minutes
+          <input
+            type="number"
+            min={1}
+            max={1440}
+            required
+            value={minutes}
+            onChange={(e) => setMinutes(Number(e.target.value))}
+          />
+        </label>
+        <button className="primary" disabled={busy}>
+          Save time block
+        </button>
+        <button
+          className="underlink"
+          type="button"
+          disabled={busy}
+          onClick={async (e) => {
+            const el = e.currentTarget.closest("details");
+            if (await save({ date: "", time: "", minutes: 0 })) {
+              setDate("");
+              setTime("");
+              if (el) el.open = false;
+            }
+          }}
+        >
+          Remove time block
+        </button>
+      </form>
+    </details>
   );
 }

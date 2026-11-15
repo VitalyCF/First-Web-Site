@@ -28,8 +28,8 @@ export function Login({
       if (!r.ok)
         throw Error(
           r.status === 401
-            ? "Ключ не подошёл. Проверь, что скопировал его целиком."
-            : "Не удалось войти. Попробуй ещё раз.",
+            ? "The key did not match. Copy the complete key and try again."
+            : "Could not sign in. Please try again.",
         );
       setKey("");
       await enter();
@@ -44,7 +44,7 @@ export function Login({
       <div className="entry-photo">
         <img
           src="/goals-media/alpine-ridge-1600.webp"
-          alt="Горный хребет в Альпах"
+          alt="An Alpine mountain ridge"
         />
         <div className="entry-brand">
           <span className="kursmark" aria-hidden="true">
@@ -52,23 +52,23 @@ export function Login({
             <i />
             <i />
           </span>
-          Курс.
+          Kurs.
         </div>
       </div>
       <section className="entry-panel">
-        <span className="section-kicker">Личный журнал целей</span>
+        <span className="section-kicker">Your personal goals journal</span>
         <h1>
           {mode === "loading"
-            ? "Открываю журнал…"
+            ? "Opening your journal…"
             : mode === "error"
-              ? "Связь прервалась"
-              : "С возвращением."}
+              ? "Connection interrupted"
+              : "Welcome back."}
         </h1>
         {mode === "login" ? (
           <form className="form" onSubmit={signIn}>
             <label>
               <span>
-                <KeyRound size={14} /> Ключ от журнала
+                <KeyRound size={14} /> Your journal key
               </span>
               <input
                 required
@@ -84,13 +84,13 @@ export function Login({
               </p>
             )}
             <button className="action-ink" disabled={busy}>
-              {busy ? "Открываю…" : "Открыть журнал"}
+              {busy ? "Opening…" : "Open journal"}
               <ArrowRight size={16} />
             </button>
           </form>
         ) : mode === "error" ? (
           <button className="action-ink" onClick={retry}>
-            Повторить
+            Try again
           </button>
         ) : null}
       </section>

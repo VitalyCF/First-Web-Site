@@ -25,7 +25,9 @@ export function Editor({
   const [title, setTitle] = useState(draft?.title || existing?.title || "");
   const [target, setTarget] = useState(draft?.target || existing?.target || "");
   const [baseline, setBase] = useState(existing?.baseline || "");
-  const [category, setCat] = useState<Category>(existing?.category || "Личное");
+  const [category, setCat] = useState<Category>(
+    existing?.category || "Personal",
+  );
   const [lines, setLines] = useState(draft?.steps.join("\n") || "");
   const [thisWeek, setWeek] = useState(true);
   return (
@@ -67,28 +69,28 @@ export function Editor({
       }}
     >
       <label>
-        Чего хочешь достичь?
+        What would you like to achieve?
         <input
           required
           autoFocus
           maxLength={200}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Например, сыграть три песни на пианино"
+          placeholder="For example, play three songs on the piano"
         />
       </label>
       <label>
-        Как поймёшь, что получилось?
+        What does success look like?
         <input
           maxLength={400}
           value={target}
           onChange={(e) => setTarget(e.target.value)}
-          placeholder="Измеримый результат или событие"
+          placeholder="A measurable outcome or event"
         />
       </label>
       <div className="formpair">
         <label>
-          Сфера
+          Life area
           <select
             value={category}
             onChange={(e) => setCat(e.target.value as Category)}
@@ -99,26 +101,25 @@ export function Editor({
           </select>
         </label>
         <label>
-          Отправная точка
+          Starting point
           <input
             maxLength={400}
             value={baseline}
             onChange={(e) => setBase(e.target.value)}
-            placeholder="Где ты сейчас?"
+            placeholder="Where are you now?"
           />
         </label>
       </div>
       {(!existing || draft) && (
         <>
           <label>
-            {existing ? "Добавить шаги" : "Шаги"}{" "}
-            <small>По одному на строку</small>
+            {existing ? "Add steps" : "Steps"} <small>One per line</small>
             <textarea
               value={lines}
               maxLength={6500}
               onChange={(e) => setLines(e.target.value)}
               rows={4}
-              placeholder="Что можно сделать первым?"
+              placeholder="What could you do first?"
             />
           </label>
           {year === Number(day().slice(0, 4)) && (
@@ -128,13 +129,13 @@ export function Editor({
                 checked={thisWeek}
                 onChange={(e) => setWeek(e.target.checked)}
               />
-              Взять первый шаг на эту неделю
+              Add the first step to this week
             </label>
           )}
         </>
       )}
       <button className="primary full" disabled={busy || !title.trim()}>
-        {existing ? "Сохранить изменения" : "Сохранить цель"}
+        {existing ? "Save changes" : "Save goal"}
       </button>
     </form>
   );

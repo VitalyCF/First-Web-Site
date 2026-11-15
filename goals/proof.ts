@@ -6,7 +6,7 @@ export function loginMessage(origin: string, time: number, nonce: string) {
 }
 export async function signLogin(seed: string, origin: string) {
   if (!/^[A-Za-z0-9_-]{43}$/.test(seed))
-    throw Error("Проверь, что скопировал ключ целиком.");
+    throw Error("Copy the complete journal key.");
   const bytes = Uint8Array.from(
     atob(seed.replace(/-/g, "+").replace(/_/g, "/") + "="),
     (c) => c.charCodeAt(0),

@@ -1,60 +1,28 @@
-"use client";
 import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Check, Sparkles, X, CalendarDays } from "lucide-react";
 import {
-  ArrowRight,
-  CalendarDays,
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  Plus,
-  Sparkles,
-  X,
-} from "lucide-react";
-import {
-  carryGoal,
   day,
-  putHabit,
+  carryGoal,
+  normalizePlanner,
   validPlanner,
-  weekKey,
   type Goal,
   type Planner,
 } from "./planner";
+import { api, RequestError } from "./api";
 import {
   Masthead,
   FocusSpread,
   YearSpread,
   YearStrip,
 } from "./components/journal";
-import { Editor, type Draft } from "./components/goal-editor";
+import { Calendar, Today, HabitForm } from "./components/practice";
+import { Editor } from "./components/goal-editor";
 import { Detail } from "./components/detail";
-import { Calendar, Today, HabitForm, startFor } from "./components/practice";
+import { Coach, type ChatContext } from "./components/coach";
+import { Review } from "./components/review";
 import { Login } from "./components/login";
-import { Coach, type Proposal } from "./components/coach";
-type View = "overview" | "goals" | "week" | "history" | "calendar";
-type Modal = {
-  kind: "detail" | "edit" | "new" | "coach" | "habit";
-  proposal?: Proposal;
-  id?: string;
-  draft?: Draft;
-  prompt?: string;
-};
-const dateLabel = (d: string, options: Intl.DateTimeFormatOptions) =>
-  new Date(d + "T12:00:00Z").toLocaleDateString("ru-RU", {
-    timeZone: "UTC",
-    ...options,
-  });
-function shiftDate(date: string, days: number) {
-  const d = new Date(date + "T12:00:00Z");
-  d.setUTCDate(d.getUTCDate() + days);
-  return d.toISOString().slice(0, 10);
-}
-function word(n: number, one: string, few: string, many: string) {
-  return n % 10 === 1 && n % 100 !== 11
-    ? one
-    : n % 10 >= 2 && n % 10 <= 4 && !(n % 100 >= 12 && n % 100 <= 14)
-      ? few
-      : many;
-}
+type View = "focus" | "year" | "calendar" | "review" | "assistant";
+type Modal = { kind: "detail" | "edit" | "new" | "habit"; id?: string };
 function ModalShell({
   title,
   children,
@@ -66,43 +34,30 @@ function ModalShell({
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    const d = dialog.current;
-    if (!d) return;
-    const trigger = document.activeElement as HTMLElement | null;
-    d.showModal();
+    const d = dialog.current,
+      trigger = document.activeElement as HTMLElement;
+    d?.showModal();
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
-      d.close();
+      d?.close();
       document.body.style.overflow = overflow;
       trigger?.focus();
     };
   }, []);
   return (
     <dialog
-      ref={dialog}
       className="modal"
+      ref={dialog}
       aria-labelledby="modal-title"
       onCancel={(e) => {
         e.preventDefault();
         close();
       }}
-      onClick={(e) => {
-        if (e.target === dialog.current) {
-          const b = dialog.current!.getBoundingClientRect();
-          if (
-            e.clientX < b.left ||
-            e.clientX > b.right ||
-            e.clientY < b.top ||
-            e.clientY > b.bottom
-          )
-            close();
-        }
-      }}
     >
       <header>
         <h2 id="modal-title">{title}</h2>
-        <button className="iconbtn" aria-label="Закрыть" onClick={close}>
+        <button className="iconbtn" aria-label="Close" onClick={close}>
           <X size={21} />
         </button>
       </header>
@@ -111,447 +66,233 @@ function ModalShell({
   );
 }
 export default function Home() {
+  const currentYear = Number(day().slice(0, 4));
   const [planner, setPlanner] = useState<Planner>({ goals: [] }),
-    [view, setView] = useState<View>("overview"),
-    [year, setYear] = useState(2026),
-    [week, setWeek] = useState(weekKey()),
-    [modal, setModal] = useState<Modal | null>(null),
-    [focusYear, setFocusYear] = useState(2026);
-  const [mode, setMode] = useState<"loading" | "cloud" | "login" | "error">(
+    [revision, setRevision] = useState(0),
+    [mode, setMode] = useState<"loading" | "cloud" | "login" | "error">(
       "loading",
     ),
+    [year, setYear] = useState(currentYear),
+    [view, setView] = useState<View>("focus"),
+    [modal, setModal] = useState<Modal | null>(null),
+    [context, setContext] = useState<ChatContext>({
+      id: crypto.randomUUID(),
+      year: currentYear,
+      goalId: "",
+      mode: "goal",
+    }),
     [busy, setBusy] = useState(false),
-    [toast, setToast] = useState(""),
-    [error, setError] = useState("");
-  const rev = useRef(0),
-    lock = useRef(false);
+    [error, setError] = useState(""),
+    [toast, setToast] = useState("");
+  const guard = useRef(false);
+  function adopt(d: { planner: Planner; revision: number }) {
+    if (!validPlanner(d.planner))
+      throw Error("The journal response could not be read.");
+    setPlanner(normalizePlanner(d.planner));
+    setRevision(d.revision);
+  }
   async function load() {
     try {
-      const r = await fetch("/api/kurs/planner", { cache: "no-store" });
-      if (!r.ok) {
-        if (r.status === 401) {
-          setPlanner({ goals: [] });
-          setMode("login");
-          return;
-        }
-        throw Error();
-      }
-      const d = (await r.json()) as { planner: unknown; revision: number };
-      if (!validPlanner(d.planner)) throw Error();
-      rev.current = d.revision;
-      setPlanner(d.planner);
+      adopt(await api("planner", { cache: "no-store" }));
       setMode("cloud");
-    } catch {
-      setMode("error");
+    } catch (e) {
+      setMode(
+        e instanceof RequestError && e.status === 401 ? "login" : "error",
+      );
     }
   }
   useEffect(() => {
-    setYear(Number(day().slice(0, 4)));
-    const remembered = Number(localStorage.getItem("kurs.focusYear"));
-    if (
-      Number.isInteger(remembered) &&
-      remembered >= 2000 &&
-      remembered <= 2200
-    ) {
-      setFocusYear(remembered);
-      setYear(remembered);
-    } else {
-      setFocusYear(Number(day().slice(0, 4)));
-    }
     void load();
   }, []);
   useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(""), 3200);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setToast(""), 3500);
+    return () => clearTimeout(timer);
   }, [toast]);
   async function save(next: Planner) {
-    if (lock.current || mode === "loading" || mode === "error") return false;
-    lock.current = true;
+    if (guard.current) return false;
+    guard.current = true;
     setBusy(true);
     setError("");
     try {
-      {
-        const r = await fetch("/api/kurs/planner", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ revision: rev.current, planner: next }),
-        });
-        if (r.status === 401) {
-          setMode("login");
-          return false;
-        }
-        if (r.status === 409) {
-          await load();
-          setError(
-            "План изменился в другом окне. Загружена свежая версия. Повтори своё изменение.",
-          );
-          return false;
-        }
-        if (!r.ok) throw Error();
-        rev.current = ((await r.json()) as { revision: number }).revision;
-      }
-      setPlanner(next);
+      const r = await api("planner", {
+        method: "PUT",
+        body: JSON.stringify({ revision, planner: next }),
+      });
+      adopt({ planner: next, revision: r.revision });
       return true;
-    } catch {
-      setError("Не удалось сохранить. Проверь соединение и повтори.");
+    } catch (e) {
+      if (e instanceof RequestError && e.status === 401) setMode("login");
+      if (e instanceof RequestError && e.status === 409) await load();
+      setError((e as Error).message);
       return false;
     } finally {
-      lock.current = false;
       setBusy(false);
+      guard.current = false;
     }
   }
-  const changeGoal = (g: Goal) =>
-    save({ goals: planner.goals.map((a) => (g.id === a.id ? g : a)) });
-  const go = (v: View) => {
-    setView(v);
-
+  const change = (g: Goal) =>
+    save({
+      ...planner,
+      goals: planner.goals.map((x) => (x.id === g.id ? g : x)),
+    });
+  function go(v: string) {
+    setView(v as View);
+    setError("");
     window.scrollTo(0, 0);
-  };
-  const goals = planner.goals.filter((g) => g.year === year),
-    focus =
-      goals.find((g) => g.focus) || goals.find((g) => !g.achieved) || goals[0];
+  }
   const selected = planner.goals.find((g) => g.id === modal?.id),
-    currentYear = Number(day().slice(0, 4));
-  const years = Array.from(
-    new Set([
+    goals = planner.goals.filter((g) => g.year === year),
+    focus =
+      goals.find((g) => g.focus) ||
+      goals.find((g) => !g.achieved && (!g.status || g.status === "active")) ||
+      goals[0];
+  const years = [
+    ...new Set([
+      currentYear - 2,
       currentYear - 1,
       currentYear,
       currentYear + 1,
-      year,
       ...planner.goals.map((g) => g.year),
+      ...(planner.reviews ?? []).map((r) => r.year),
     ]),
-  ).sort((a, b) => b - a);
-  const chooseYear = (n: number) => {
-    setYear(n);
-    setWeek(n === currentYear ? weekKey() : weekKey(n + "-01-04"));
-  };
-  const newGoal = () => setModal({ kind: "new" }),
-    open = (g: Goal) => setModal({ kind: "detail", id: g.id }),
-    coach = (prompt = "", g?: Goal) => {
-      setModal({ kind: "coach", id: g?.id, prompt });
-    };
-  const tasks = goals.flatMap((g) =>
-    g.steps.filter((s) => s.week === week).map((s) => ({ g, s })),
-  );
-  const completed = tasks.filter((x) => x.s.done).length;
-  const weekTitle =
-    week === weekKey()
-      ? "Эта неделя"
-      : dateLabel(week, { day: "numeric", month: "short" }) +
-        " – " +
-        dateLabel(shiftDate(week, 6), { day: "numeric", month: "short" });
+  ].sort((a, b) => b - a);
+  const open = (g: Goal) => setModal({ kind: "detail", id: g.id });
+  function chat(prompt = "", g?: Goal, review = false) {
+    setContext({
+      id: crypto.randomUUID(),
+      year: g?.year || year,
+      goalId: g?.id || "",
+      mode: review ? "review" : "goal",
+      prompt,
+    });
+    setModal(null);
+    go("assistant");
+  }
   async function carry(g: Goal) {
     if (
       planner.goals.some(
-        (x) => x.year === g.year + 1 && x.lineage === g.lineage,
+        (x) => x.lineage === g.lineage && x.year === g.year + 1,
       )
     )
       return;
     const next = carryGoal(g, g.year + 1);
-    if (await save({ goals: [...planner.goals, next] })) {
-      chooseYear(next.year);
-      setModal({ kind: "detail", id: next.id });
-      setToast("Цель перенесена. Прошлый год сохранён.");
+    if (await save({ ...planner, goals: [...planner.goals, next] })) {
+      setYear(next.year);
+      open(next);
+      setToast("Goal continued in " + next.year);
     }
   }
-  function taskRows(compact = false) {
-    return tasks.length ? (
-      <div className="taskrows">
-        {(compact ? tasks.slice(0, 3) : tasks).map(({ g, s }) => (
-          <div key={s.id} className="taskrow">
-            <button
-              disabled={busy}
-              role="checkbox"
-              aria-label={s.title}
-              aria-checked={s.done}
-              className={"tick " + (s.done ? "checked" : "")}
-              onClick={() =>
-                changeGoal({
-                  ...g,
-                  steps: g.steps.map((x) =>
-                    x.id === s.id ? { ...x, done: !x.done } : x,
-                  ),
-                })
-              }
-            >
-              {s.done && <Check size={14} />}
-            </button>
-            <button className="taskinfo" onClick={() => open(g)}>
-              <b className={s.done ? "done" : ""}>{s.title}</b>
-              <small>
-                <i className={g.category === "Обучение" ? "blue" : ""} />
-                {g.title}
-              </small>
-            </button>
-          </div>
-        ))}
-      </div>
-    ) : (
-      <div className="emptymini">
-        На эту неделю пока нет шагов.{" "}
-        <button className="link" onClick={() => go("goals")}>
-          Выбрать из целей <ArrowRight size={13} />
-        </button>
-      </div>
-    );
-  }
-  const modalTitle =
-    modal?.kind === "habit"
-      ? "Ритм занятий"
-      : modal?.kind === "new"
-        ? "Новая цель"
-        : modal?.kind === "edit"
-          ? "Редактировать цель"
-          : modal?.kind === "coach"
-            ? "Помощник Катя"
-            : selected?.title || "Цель";
   if (mode !== "cloud")
     return <Login mode={mode} enter={load} retry={() => void load()} />;
   return (
     <div className="journal-shell">
-      <Masthead
-        view={view}
-        onCalendar={() => go("calendar")}
-        onFocus={() => {
-          chooseYear(focusYear);
-          go("overview");
-        }}
-        onYear={() => go("goals")}
-        onNew={newGoal}
-      />
+      <Masthead view={view} go={go} onNew={() => chat()} />
       <main className="journal-main">
         {error && !modal && (
-          <p className="error" role="alert">
+          <p role="alert" className="error">
             {error}
           </p>
         )}
-        {view === "overview" && (
+        {view === "focus" && (
           <>
             <FocusSpread
               goal={focus}
               year={year}
               onOpen={() => focus && open(focus)}
-              onCreate={newGoal}
-              onCoach={() => coach("", focus)}
+              onCreate={() => chat()}
             >
               {focus && (
                 <Today
                   g={focus}
                   busy={busy}
-                  change={changeGoal}
-                  open={() => open(focus)}
+                  change={change}
                   edit={() => setModal({ kind: "habit", id: focus.id })}
-                  coach={(p) => coach(p, focus)}
+                  open={() => open(focus)}
+                  coach={(p) => chat(p, focus)}
                 />
               )}
             </FocusSpread>
             {goals.length > 0 && (
-              <YearStrip goals={goals} open={open} onYear={() => go("goals")} />
+              <YearStrip goals={goals} open={open} onYear={() => go("year")} />
             )}
           </>
         )}
-        {view === "calendar" && (
-          <Calendar
-            goals={planner.goals}
-            initial={year === currentYear ? day() : year + "-01-01"}
-            change={changeGoal}
-            open={open}
-            busy={busy}
-          />
-        )}
-        {view === "goals" && (
+        {view === "year" && (
           <YearSpread
             key={year}
             goals={goals}
             year={year}
             years={years}
-            chooseYear={chooseYear}
+            chooseYear={setYear}
             open={open}
-            onCreate={newGoal}
-            onCoach={() => coach()}
-            onHistory={() => go("history")}
-            onWeek={() => go("week")}
+            onCreate={() => chat()}
+            onReview={() => go("review")}
           />
         )}
-        {(view === "history" || view === "week") && (
-          <header className="spread-title">
-            <h1>
-              {view === "history" ? "История" : "Шаги недели"}
-              <span>.</span>
-            </h1>
-            <button className="underlink" onClick={() => go("goals")}>
-              Мой год <ArrowRight size={15} />
-            </button>
-          </header>
+        {view === "calendar" && (
+          <Calendar
+            key={year}
+            goals={planner.goals}
+            initial={year === currentYear ? day() : year + "-01-01"}
+            change={change}
+            open={open}
+            busy={busy}
+          />
         )}
-        {view === "week" && (
-          <>
-            <div className="sectiontitle">
-              <h2>{weekTitle}</h2>
-              <div className="actions">
-                <button
-                  className="iconbtn"
-                  aria-label="Предыдущая неделя"
-                  onClick={() => setWeek(shiftDate(week, -7))}
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button
-                  className="iconbtn"
-                  aria-label="Следующая неделя"
-                  onClick={() => setWeek(shiftDate(week, 7))}
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            </div>
-            <section className="panel">
-              <div className="weekline">
-                {dateLabel(week, {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-                <span>
-                  {completed} из {tasks.length} готово
-                </span>
-              </div>
-              {taskRows()}
-            </section>
-            <section className="spaced">
-              <h2>Добавить в план недели</h2>
-              <div className="panel picklist">
-                {goals
-                  .filter((g) => !g.achieved)
-                  .flatMap((g) =>
-                    g.steps
-                      .filter((s) => !s.done && s.week !== week)
-                      .map((s) => (
-                        <button
-                          disabled={busy}
-                          key={s.id}
-                          onClick={() =>
-                            changeGoal({
-                              ...g,
-                              steps: g.steps.map((t) =>
-                                s.id === t.id ? { ...t, week } : t,
-                              ),
-                            })
-                          }
-                        >
-                          <span>
-                            {s.title}
-                            <small>{g.title}</small>
-                          </span>
-                          <Plus size={16} />
-                        </button>
-                      )),
-                  )}
-                {!goals.some(
-                  (g) =>
-                    !g.achieved &&
-                    g.steps.some((s) => !s.done && s.week !== week),
-                ) && (
-                  <p className="muted">
-                    Все открытые шаги уже в плане. Новый шаг можно добавить в
-                    карточке цели.
-                  </p>
-                )}
-              </div>
-            </section>
-          </>
+        {view === "review" && (
+          <Review
+            key={year}
+            planner={planner}
+            year={year}
+            years={years}
+            chooseYear={setYear}
+            save={save}
+            busy={busy}
+            open={open}
+            chat={(p) => chat(p, undefined, true)}
+          />
         )}
-        {view === "history" && (
-          <>
-            <p className="historyintro">
-              Результаты каждого года и цели, которые ты продолжаешь.
-            </p>
-            {Array.from(new Set([...planner.goals.map((g) => g.year), year]))
-              .sort((a, b) => b - a)
-              .map((y) => {
-                const batch = planner.goals.filter((g) => g.year === y);
-                return (
-                  <section key={y} className="historyblock">
-                    <div className="sectiontitle">
-                      <h2>{y}</h2>
-                      <span className="micro">
-                        {batch.length}{" "}
-                        {word(batch.length, "цель", "цели", "целей")} ·
-                        Достигнуто {batch.filter((g) => g.achieved).length}
-                      </span>
-                    </div>
-                    <div className="panel">
-                      {batch.length ? (
-                        batch.map((g) => (
-                          <div className="histrow" key={g.id}>
-                            <button
-                              className="taskinfo"
-                              onClick={() => open(g)}
-                            >
-                              <b>{g.title}</b>
-                              <small>
-                                {g.achieved ? "Достигнута" : "В работе"} ·{" "}
-                                {g.entries.at(-1)?.value ||
-                                  g.baseline ||
-                                  "Результат пока не записан"}
-                                {planner.goals.some(
-                                  (x) =>
-                                    x.lineage === g.lineage && x.year === y - 1,
-                                )
-                                  ? " · Продолжена с " + (y - 1)
-                                  : ""}
-                              </small>
-                            </button>
-                            {!g.achieved &&
-                              !planner.goals.some(
-                                (x) =>
-                                  x.lineage === g.lineage && x.year === y + 1,
-                              ) && (
-                                <button
-                                  className="secondary small"
-                                  disabled={busy}
-                                  onClick={() => carry(g)}
-                                >
-                                  В {y + 1} <ArrowRight size={14} />
-                                </button>
-                              )}
-                          </div>
-                        ))
-                      ) : (
-                        <div className="emptymini">
-                          Целей за этот год пока нет.
-                        </div>
-                      )}
-                    </div>
-                  </section>
-                );
-              })}
-          </>
+        {view === "assistant" && (
+          <Coach
+            key={context.id}
+            initial={context}
+            planner={planner}
+            revision={revision}
+            adopt={adopt}
+            reload={load}
+            onManual={() => setModal({ kind: "new" })}
+            onBack={() => go(context.mode === "review" ? "review" : "focus")}
+          />
         )}
         <footer className="journal-footer">
           <button
             className="underlink"
             onClick={async () => {
               try {
-                const r = await fetch("/api/kurs/logout", { method: "POST" });
-                if (!r.ok) throw Error();
-                setModal(null);
+                await api("logout", { method: "POST" });
                 setPlanner({ goals: [] });
                 setMode("login");
-              } catch {
-                setError("Не удалось выйти. Проверь соединение.");
+              } catch (e) {
+                setError((e as Error).message);
               }
             }}
           >
-            Выйти из журнала
+            Sign out
           </button>
         </footer>
       </main>
       {modal && (
         <ModalShell
-          key={modal.kind + (modal.id || "")}
-          title={modalTitle}
+          title={
+            modal.kind === "new"
+              ? "Write a goal"
+              : modal.kind === "edit"
+                ? "Edit goal"
+                : modal.kind === "habit"
+                  ? "Your routine"
+                  : selected?.title || "Goal"
+          }
           close={() => {
             if (!busy) {
               setModal(null);
@@ -564,48 +305,53 @@ export default function Home() {
               {error}
             </p>
           )}
-          {modal.kind === "habit" && selected && (
-            <HabitForm
-              g={selected}
-              draft={modal.proposal}
-              busy={busy}
-              onSave={async (g) => {
-                const ok = await changeGoal(g);
-                if (ok) {
-                  setModal(null);
-                  setToast("Ритм сохранён");
-                }
-                return ok;
-              }}
-            />
-          )}
           {modal.kind === "detail" && selected && (
             <>
-              <button
-                className="underlink"
-                onClick={() => setModal({ kind: "habit", id: selected.id })}
-              >
-                <CalendarDays size={15} />
-                Настроить ритм занятий
-              </button>
+              <div className="goal-tools">
+                <button
+                  className="underlink"
+                  onClick={() => setModal({ kind: "habit", id: selected.id })}
+                >
+                  <CalendarDays size={15} />
+                  Routine settings
+                </button>
+                <label>
+                  Status
+                  <select
+                    aria-label="Goal status"
+                    value={selected.status || "active"}
+                    disabled={busy}
+                    onChange={(e) =>
+                      void change({
+                        ...selected,
+                        status: e.target.value as Goal["status"],
+                      })
+                    }
+                  >
+                    <option value="active">Active</option>
+                    <option value="paused">Paused</option>
+                    <option value="changed">Changed direction</option>
+                    <option value="released">Consciously released</option>
+                  </select>
+                </label>
+              </div>
+              {selected.why && <p className="goal-why">{selected.why}</p>}
               <Detail
-                key={selected.id}
                 g={selected}
                 busy={busy}
                 hasNext={planner.goals.some(
                   (x) =>
-                    x.year === selected.year + 1 &&
-                    x.lineage === selected.lineage,
+                    x.lineage === selected.lineage &&
+                    x.year === selected.year + 1,
                 )}
-                onChange={changeGoal}
-                onAI={() =>
-                  coach("Помоги выбрать следующий шаг для этой цели.", selected)
-                }
+                onChange={change}
+                onAI={() => chat("", selected)}
                 onEdit={() => setModal({ kind: "edit", id: selected.id })}
-                onCarry={() => carry(selected)}
+                onCarry={() => void carry(selected)}
                 onFocus={async () => {
                   if (
                     await save({
+                      ...planner,
                       goals: planner.goals.map((g) =>
                         g.year === selected.year
                           ? { ...g, focus: g.id === selected.id }
@@ -613,81 +359,53 @@ export default function Home() {
                       ),
                     })
                   ) {
-                    chooseYear(selected.year);
-                    setFocusYear(selected.year);
-                    localStorage.setItem(
-                      "kurs.focusYear",
-                      String(selected.year),
-                    );
-                    go("overview");
+                    setYear(selected.year);
                     setModal(null);
-                    setToast("Цель в фокусе");
+                    go("focus");
                   }
                 }}
                 onDelete={async () => {
                   if (
                     await save({
+                      ...planner,
                       goals: planner.goals.filter((g) => g.id !== selected.id),
                     })
                   ) {
                     setModal(null);
-                    setToast("Цель удалена");
+                    setToast("Goal deleted");
                   }
                 }}
               />
             </>
           )}
-          {modal.kind === "new" && !modal.draft && (
-            <button
-              className="aistart"
-              onClick={() =>
-                coach(
-                  "Хочу придумать новую цель. Задай мне один вопрос, чтобы помочь её сформулировать.",
-                )
-              }
-            >
-              <Sparkles size={16} /> Придумать вместе с Катей{" "}
-              <ArrowRight size={14} />
-            </button>
-          )}
           {(modal.kind === "edit" || modal.kind === "new") && (
             <Editor
-              year={selected?.year || year}
               existing={modal.kind === "edit" ? selected : undefined}
-              draft={modal.draft}
+              year={selected?.year || year}
               busy={busy}
               onSave={async (g) => {
-                if (modal.proposal) {
-                  const { cue, action, minimum, minutes, days } =
-                    modal.proposal;
-                  g = putHabit(g, {
-                    cue,
-                    action,
-                    minimum,
-                    minutes,
-                    days,
-                    since: startFor(g),
-                  });
-                }
                 const ok = selected
-                  ? await changeGoal(g)
-                  : await save({ goals: [...planner.goals, g] });
+                  ? await change(g)
+                  : await save({ ...planner, goals: [...planner.goals, g] });
                 if (ok) {
                   open(g);
-                  setToast("Цель сохранена");
+                  setToast("Goal saved");
                 }
               }}
             />
           )}
-          {modal.kind === "coach" && (
-            <Coach
-              goal={selected}
-              initial={modal.prompt || ""}
-              onApply={(proposal) =>
-                selected
-                  ? setModal({ kind: "habit", id: selected.id, proposal })
-                  : setModal({ kind: "new", draft: proposal, proposal })
-              }
+          {modal.kind === "habit" && selected && (
+            <HabitForm
+              g={selected}
+              busy={busy}
+              onSave={async (g) => {
+                const ok = await change(g);
+                if (ok) {
+                  setModal(null);
+                  setToast("Routine saved");
+                }
+                return ok;
+              }}
             />
           )}
         </ModalShell>

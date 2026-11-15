@@ -21,6 +21,6 @@ const outputs = Object.entries(bundle.metafile.outputs);
 const [script, meta] = outputs.find(([, output]) => output.entryPoint);
 const base = "/goals-media/build/";
 const html = `<!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f8f7f3"><title>Курс · Личный журнал целей</title><link rel="icon" href="/goals-media/favicon.svg"><link rel="stylesheet" href="${base}${basename(meta.cssBundle)}"></head>
-<body><div id="journal"></div><noscript>Для личного журнала включи JavaScript.</noscript><script type="module" src="${base}${basename(script)}"></script></body></html>`;
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f8f7f3"><title>Kurs · Your year, with intention</title><link rel="icon" href="/goals-media/favicon.svg"><link rel="stylesheet" href="${base}${basename(meta.cssBundle)}"></head>
+<body><div id="journal"></div><noscript>Enable JavaScript to open your journal.</noscript><script type="module" src="${base}${basename(script)}"></script></body></html>`;
 await writeFile(outdir + "/index.html", html);

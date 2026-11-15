@@ -1,27 +1,14 @@
 import { loginMessage } from "./proof";
 import { ownerPublicKey } from "./owner";
-import { day, habitAt, planned, validPlanner, type Planner } from "./planner";
+import { normalizePlanner, validPlanner } from "./planner";
+import { json, headers, body, journal } from "./storage";
+import { serviceRoute, extraTables } from "./service";
+import { models, type AssistantEnv } from "./assistant";
 
-const model = "@cf/openai/gpt-oss-120b";
-const headers = {
-  "Cache-Control": "private, no-store",
-  "X-Content-Type-Options": "nosniff",
-  "Referrer-Policy": "no-referrer",
-};
-const json = (
-  data: unknown,
-  status = 200,
-  extra: Record<string, string> = {},
-) => Response.json(data, { status, headers: { ...headers, ...extra } });
 const enc = new TextEncoder();
 const sessionName = "__Host-kurs";
 const maxAge = 60 * 60 * 24 * 90;
-const empty: Planner = { goals: [] };
-type Env = {
-  GOALS_DB: D1Database;
-  GOALS_AI: {
-    run: (name: string, options: Record<string, unknown>) => Promise<any>;
-  };
+type Env = AssistantEnv & {
   ASSETS: { fetch: (r: Request) => Promise<Response> };
 };
 let initialized: Promise<void> | undefined;
@@ -30,6 +17,7 @@ function schema(db: D1Database) {
   if (!initialized)
     initialized = db
       .batch([
+        ...extraTables.map((q) => db.prepare(q)),
         db.prepare(
           "CREATE TABLE IF NOT EXISTS journal (id INTEGER PRIMARY KEY CHECK(id=1),revision INTEGER NOT NULL,content TEXT NOT NULL)",
         ),
@@ -52,169 +40,6 @@ async function digest(value: string) {
   return Array.from(new Uint8Array(bytes), (n) =>
     n.toString(16).padStart(2, "0"),
   ).join("");
-}
-async function body(request: Request, max: number) {
-  if (Number(request.headers.get("Content-Length")) > max)
-    throw new RangeError();
-  const reader = request.body?.getReader();
-  if (!reader) return {};
-  const chunks: Uint8Array[] = [];
-  let size = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    size += value.byteLength;
-    if (size > max) {
-      await reader.cancel();
-      throw new RangeError();
-    }
-    chunks.push(value);
-  }
-  const buf = new Uint8Array(size);
-  let offset = 0;
-  for (const c of chunks) {
-    buf.set(c, offset);
-    offset += c.byteLength;
-  }
-  const parsed = JSON.parse(new TextDecoder().decode(buf));
-  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
-    throw new SyntaxError();
-  return parsed;
-}
-async function journal(db: D1Database) {
-  const row = await db
-    .prepare("SELECT revision,content FROM journal WHERE id=1")
-    .first<{ revision: number; content: string }>();
-  return row
-    ? { revision: row.revision, planner: JSON.parse(row.content) as Planner }
-    : { revision: 0, planner: empty };
-}
-function textOf(data: any): string {
-  if (typeof data === "string") return data;
-  for (const candidate of [
-    data?.response,
-    data?.choices?.[0]?.message?.content,
-    data?.output_text,
-  ])
-    if (typeof candidate === "string" && candidate.trim()) return candidate;
-  return (data?.output ?? [])
-    .filter((x: any) => x?.type === "message")
-    .flatMap((x: any) => x.content ?? [])
-    .filter((x: any) => x.type === "output_text")
-    .map((x: any) => x.text)
-    .join("\n");
-}
-const coachRules = [
-  "Ты Катя, помощник по личным целям. Обращайся на ты, отвечай на русском по делу.",
-  "Помогай маленькими регулярными действиями. Привяжи действие к знакомому моменту дня, предложи обычную версию и минимум до двух минут для трудного дня. Учитывай выбранные дни, сделанное и последние пропуски. Пропуск не обнуляет прогресс.",
-  "Если цель неясна, задай один вопрос. Спрашивающему про конкретный следующий шаг дай применимый совет. Не выдумывай историю и не считай выполненную привычку достижением всей цели.",
-  "Верни JSON без разметки с полем reply (1–3 коротких предложения) и необязательным suggestion. Для конкретного плана suggestion содержит title, target, steps (1–4 последовательных шага), cue, action, minimum, minutes (1–30), days (массив ISO дней JS: 0 воскресенье, 1 понедельник, ..., 6 суббота). Не упоминай JSON в reply.",
-].join(" ");
-async function coach(env: Env, data: any) {
-  if (
-    !Array.isArray(data.turns) ||
-    !data.turns.length ||
-    data.turns.length > 12 ||
-    data.turns.some(
-      (t: any) =>
-        !t ||
-        !["user", "assistant"].includes(t.role) ||
-        typeof t.content !== "string" ||
-        t.content.length > 3000,
-    ) ||
-    data.turns.at(-1).role !== "user"
-  )
-    return json({ error: "invalid" }, 400);
-  const { planner } = await journal(env.GOALS_DB);
-  const goal = planner.goals.find((g) => g.id === data.goalId);
-  const now = day();
-  const missed = goal
-    ? Array.from({ length: 14 }, (_, i) => {
-        const d = new Date(now + "T12:00:00Z");
-        d.setUTCDate(d.getUTCDate() - i - 1);
-        return d.toISOString().slice(0, 10);
-      }).filter(
-        (d) =>
-          d.startsWith(goal.year + "-") &&
-          planned(goal, d) &&
-          !goal.practice?.some((p) => p.date === d),
-      )
-    : [];
-  const context = goal
-    ? {
-        title: goal.title,
-        target: goal.target,
-        steps: goal.steps.slice(0, 12),
-        habit: habitAt(goal, now),
-        recentPractice: (goal.practice ?? []).slice(-21),
-        scheduledWithoutCheckIn: missed,
-        lastResult: goal.entries.at(-1)?.value || goal.baseline,
-      }
-    : { newGoal: true };
-  const messages = [
-    { role: "system", content: coachRules },
-    {
-      role: "user",
-      content: "Контекст журнала на " + now + ": " + JSON.stringify(context),
-    },
-    ...data.turns,
-  ];
-  try {
-    let result;
-    try {
-      result = await env.GOALS_AI.run(model, {
-        messages,
-        reasoning_effort: "low",
-        max_tokens: 1500,
-      });
-    } catch (error) {
-      if (
-        !/schema|input.*required|must have required property|invalid.*input/i.test(
-          String(error),
-        )
-      )
-        throw error;
-      result = await env.GOALS_AI.run(model, {
-        instructions: coachRules,
-        input: JSON.stringify(messages.slice(1)),
-        reasoning: { effort: "low" },
-        max_output_tokens: 1500,
-      });
-    }
-    const raw = textOf(result).trim();
-    if (!raw) return json({ error: "empty_response" }, 502);
-    let parsed;
-    try {
-      parsed = JSON.parse(raw.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, ""));
-    } catch {}
-    if (typeof parsed?.reply !== "string")
-      return json({ reply: raw.slice(0, 2800), model });
-    const s = parsed.suggestion;
-    const good =
-      s &&
-      ["title", "target", "cue", "action", "minimum"].every(
-        (k) => typeof s[k] === "string" && s[k].trim() && s[k].length <= 300,
-      ) &&
-      Array.isArray(s.steps) &&
-      s.steps.length <= 6 &&
-      s.steps.every(
-        (t: any) => typeof t === "string" && t.trim() && t.length <= 300,
-      ) &&
-      Number.isInteger(s.minutes) &&
-      s.minutes >= 1 &&
-      s.minutes <= 180 &&
-      Array.isArray(s.days) &&
-      s.days.length > 0 &&
-      s.days.length <= 7 &&
-      s.days.every((n: any) => Number.isInteger(n) && n >= 0 && n <= 6);
-    return json({
-      reply: parsed.reply.slice(0, 2800),
-      suggestion: good ? s : undefined,
-      model,
-    });
-  } catch {
-    return json({ error: "inference_unavailable" }, 502);
-  }
 }
 async function shell(env: Env, request: Request) {
   const url = new URL("/goals-media/build/", request.url);
@@ -258,7 +83,8 @@ export async function goalsFetch(
       return json({
         app: "kurs",
         runtime: "cloudflare-workers",
-        model,
+        model: models.balanced,
+        gateway: env.OPENAI_GATEWAY_ID,
         ai: !!env.GOALS_AI,
         storage: !!env.GOALS_DB,
       });
@@ -341,8 +167,10 @@ export async function goalsFetch(
           "=; Secure; HttpOnly; SameSite=Strict; Path=/; Max-Age=0",
       });
     }
-    if (path === "planner" && request.method === "GET")
-      return json(await journal(env.GOALS_DB));
+    if (path === "planner" && request.method === "GET") {
+      const state = await journal(env.GOALS_DB);
+      return json({ ...state, planner: normalizePlanner(state.planner) });
+    }
     if (path === "planner" && request.method === "PUT") {
       const data = await body(request, 2_000_000);
       if (
@@ -365,8 +193,8 @@ export async function goalsFetch(
         ? json({ revision: data.revision + 1 })
         : json({ error: "conflict" }, 409);
     }
-    if (path === "coach" && request.method === "POST")
-      return await coach(env, await body(request, 42000));
+    const handled = await serviceRoute(request, env, path);
+    if (handled) return handled;
     return json({ error: "not_found" }, 404);
   } catch (e) {
     return json(

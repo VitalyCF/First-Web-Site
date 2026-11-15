@@ -51,5 +51,8 @@
   ],
   "ai": {
     "binding": "GOALS_AI"
+  },
+  "vars": {
+    "OPENAI_GATEWAY_ID": "personal-assistant-prod"
   }
 }
