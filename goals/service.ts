@@ -1,3 +1,4 @@
+import {shapeChat} from './shape';
 import { body, json, journal } from "./storage";
 import { normalizePlanner, validPlanner, type SourceNote } from "./planner";
 import {
@@ -58,6 +59,7 @@ export async function serviceRoute(
   env: AssistantEnv,
   path: string,
 ): Promise<Response | undefined> {
+  if(path==='shape-chat'&&request.method==='POST')return shapeChat(request,env);
   if (path === "ai-status" && request.method === "GET")
     return json({ provider: "OpenAI", gateway: env.OPENAI_GATEWAY_ID, models });
   if (path === "sources" && request.method === "GET")

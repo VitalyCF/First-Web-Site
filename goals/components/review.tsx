@@ -62,7 +62,7 @@ export function Sources({ onChanged }: { onChanged?: () => void }) {
     [error, setError] = useState("");
   useEffect(() => {
     void api("sources")
-      .then((d) => setSources(d.sources))
+      .then((d) => setSources(d.sources.filter((s:SourceNote)=>!s.id.startsWith('shape-'))))
       .catch((e) => setError(e.message));
   }, []);
   return (
@@ -89,7 +89,7 @@ export function Sources({ onChanged }: { onChanged?: () => void }) {
                   method: "PUT",
                   body: JSON.stringify({ ...d, revision: s.revision }),
                 });
-                setSources(r.sources);
+                setSources(r.sources.filter((s:SourceNote)=>!s.id.startsWith('shape-')));
                 setError("");
                 onChanged?.();
                 return true;

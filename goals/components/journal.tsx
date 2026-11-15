@@ -39,6 +39,7 @@ export function Masthead({
         </button>
         <nav className="view-switch" aria-label="Journal view">
           {[
+            ["shape", "Shape", Sparkles],
             ["focus", "Focus", Focus],
             ["year", "Year", Layers],
             ["calendar", "Calendar", CalendarDays],

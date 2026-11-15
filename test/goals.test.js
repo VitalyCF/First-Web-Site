@@ -249,6 +249,15 @@ test("private goal conversations, acceptance and year reviews preserve the journ
     assert.equal(replanned.steps[1].title, "Book a rehearsal");
     assert.deepEqual(replanned.entries, existing.entries);
     assert.deepEqual(replanned.practice, existing.practice);
+    setReply({reply:'What do you miss about music?',where:'You can play a little piano.',wants:'More room for music.',ideas:['Explore playing music with friends']});
+    let shaped=await request('shape-chat','POST',{year:2026,area:'Hobbies',text:'Help me explore music.'});
+    assert.equal(shaped.status,200);assert.equal(shaped.data.state.ideas[0].status,'explore');
+    const shapeState=shaped.data.state;shapeState.ideas[0].status='chosen';
+    assert.equal((await request('sources/'+shaped.data.id,'PUT',{year:2026,text:JSON.stringify(shapeState),revision:shaped.data.revision})).status,200);
+    shaped=await request('shape-chat','POST',{year:2026,area:'Hobbies',text:'I chose this direction.'});
+    assert.equal(shaped.data.state.ideas.length,1);assert.equal(shaped.data.state.ideas[0].status,'chosen');assert.equal(shaped.data.state.turns.length,4);
+    assert.equal((await request('planner')).data.planner.goals.length,2,'exploration does not create goals');
+    setReply(null);
     const withRoutine = api.putHabit(existing, {
       since: "2026-01-01",
       cue: "After coffee",

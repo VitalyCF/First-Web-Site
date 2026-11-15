@@ -1,3 +1,4 @@
+import {Shape} from './components/shape';
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, Sparkles, X, CalendarDays } from "lucide-react";
 import {
@@ -21,7 +22,7 @@ import { Detail } from "./components/detail";
 import { Coach, type ChatContext } from "./components/coach";
 import { Review } from "./components/review";
 import { Login } from "./components/login";
-type View = "focus" | "year" | "calendar" | "review" | "assistant";
+type View = "shape" | "focus" | "year" | "calendar" | "review" | "assistant";
 type Modal = { kind: "detail" | "edit" | "new" | "habit"; id?: string };
 function ModalShell({
   title,
@@ -73,7 +74,7 @@ export default function Home() {
       "loading",
     ),
     [year, setYear] = useState(currentYear),
-    [view, setView] = useState<View>("focus"),
+    [view, setView] = useState<View>("shape"),
     [modal, setModal] = useState<Modal | null>(null),
     [context, setContext] = useState<ChatContext>({
       id: crypto.randomUUID(),
@@ -194,6 +195,7 @@ export default function Home() {
             {error}
           </p>
         )}
+        {view === "shape" && <Shape key={year} year={year} years={years} chooseYear={setYear} plan={p=>chat(p)}/>}
         {view === "focus" && (
           <>
             <FocusSpread

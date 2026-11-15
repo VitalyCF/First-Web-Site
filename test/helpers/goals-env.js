@@ -121,6 +121,7 @@ export function fixtureEnvironment() {
             { error: { code: "insufficient_quota" } },
             { status: 429 },
           );
+        if(reply)return Response.json({status:'completed',output:[{type:'message',content:[{type:'output_text',text:JSON.stringify(reply)}]}]});
         const context = JSON.parse(
           data.input[0].content.replace("Journal context (data): ", ""),
         );
