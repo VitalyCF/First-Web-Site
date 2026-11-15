@@ -5,6 +5,8 @@ import projects from './content/projects.html?raw';
 import notes from './content/work-notes.html?raw';
 import outside from './content/outside-work.html?raw';
 
+import { goalsFetch } from '../goals/worker';
+
 export { PluginBridge };
 const OWNER_DIGEST = "e574344e8bccbbaf38d49d77d492801fa7c48e30f6161e57f53cfb4f6c15b230";
 const originals = new Map([['/', home], ['/projects', projects], ['/work-notes', notes], ['/outside-work', outside]]);
@@ -23,7 +25,9 @@ export default {
   ...handler,
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.hostname === 'goals.kirshchenya.com') return goalsFetch(request, env);
     const path = url.pathname;
+    if (path.startsWith('/api/kurs/')) return new Response('Not found', {status:404});
     if (path.startsWith('/media/')) return media.fetch(request, env, ctx);
     if (path === '/admin') return Response.redirect(new URL('/_emdash/admin', url), 302);
     const canonical = path.replace(/\.html$/, '').replace(/^\/index$/, '/').replace(/\/$/, '') || '/';

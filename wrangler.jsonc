@@ -8,12 +8,18 @@
     {
       "pattern": "kirshchenya.com",
       "custom_domain": true
+    },
+    {
+      "pattern": "goals.kirshchenya.com",
+      "custom_domain": true
     }
   ],
   "assets": {
     "binding": "ASSETS",
     "run_worker_first": [
-      "/media/*"
+      "/media/*",
+      "/",
+      "/api/kurs/*"
     ]
   },
   "r2_buckets": [
@@ -37,6 +43,13 @@
     {
       "binding": "DB",
       "database_name": "kirshchenya-editorial"
+    },
+    {
+      "binding": "GOALS_DB",
+      "database_name": "kirshchenya-goals"
     }
-  ]
+  ],
+  "ai": {
+    "binding": "GOALS_AI"
+  }
 }

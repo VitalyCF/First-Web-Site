@@ -7,7 +7,7 @@ import { d1, r2 } from '@emdash-cms/cloudflare';
 export default defineConfig({
   site: 'https://kirshchenya.com',
   output: 'server',
-  adapter: cloudflare({ imageService: 'passthrough' }),
+  adapter: cloudflare({ imageService: 'passthrough', prerenderEnvironment: 'node' }),
   integrations: [react(), emdash({
     migrations: { runtime: 'check', dev: 'auto' },
     database: d1({ binding: 'DB', session: 'auto', coalesce: true }),

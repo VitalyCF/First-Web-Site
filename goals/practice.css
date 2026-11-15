@@ -1,0 +1,378 @@
+.cover-target {
+  font-size: clamp(15px, 1.6vw, 22px);
+  margin: 10px 0 8px;
+  max-width: 34em;
+}
+.today-box,
+.day-detail {
+  border-radius: 12px;
+  background: #eeeee6;
+  border: 1px solid #dedfd5;
+  padding: clamp(22px, 2.55vw, 38px);
+}
+.today-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  justify-content: center;
+}
+.practice-head,
+.plan-list header,
+.month > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+.practice-head h2,
+.day-detail h2,
+.month h2,
+.plan-list h2 {
+  font-weight: 550;
+  font-size: clamp(25px, 2.6vw, 39px);
+  line-height: 1.08;
+  letter-spacing: -0.055em;
+}
+.cue,
+.minimum-copy,
+.practice-time,
+.day-detail small {
+  color: #555e53;
+  font-size: 13px;
+}
+.practice-action {
+  font-size: clamp(18px, 1.65vw, 24px);
+  line-height: 1.3;
+  font-weight: 550;
+}
+.practice-time,
+.weekday-buttons,
+.mini-actions,
+.legend,
+.legend span,
+.quick-prompts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.practice-buttons {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.minimum,
+.mini-actions button,
+.quick-prompts button,
+.weekday-buttons button,
+.month header button,
+.month select {
+  border: 1px solid #c2c4b9;
+  border-radius: 22px;
+  padding: 8px 13px;
+  font-size: 13px;
+}
+.minimum {
+  min-height: 43px;
+}
+.coach-link {
+  margin-top: auto;
+}
+.plan-list {
+  grid-column: 1/-1;
+  margin-top: 22px;
+}
+.plan-list header {
+  margin: 0 0 12px;
+}
+.section-kicker {
+  display: block;
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #62695e;
+  margin-bottom: 7px;
+}
+.path-step {
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 12px 0;
+}
+.path-step button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #afb4a9;
+  border-radius: 50%;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  flex: none;
+}
+.path-step.is-next button,
+.weekday-buttons button[aria-pressed="true"] {
+  background: #303a32;
+  border-color: #303a32;
+  color: #fff;
+}
+.path-step.was-done button {
+  background: #d5e2cc;
+}
+.path-step.was-done > span {
+  color: #61675e;
+}
+.path-step small {
+  display: block;
+  color: #a33d21;
+  font-size: 11px;
+  font-weight: 600;
+}
+.weekday-buttons {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.weekday-buttons legend {
+  margin-bottom: 8px;
+}
+.weekday-buttons button {
+  padding: 8px 11px;
+}
+.calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(250px, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.month {
+  padding: clamp(16px, 2.3vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fdfcf8;
+}
+.month header {
+  margin-bottom: 15px;
+}
+.month header div {
+  display: flex;
+  gap: 4px;
+}
+.month header button {
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  display: grid;
+  place-items: center;
+}
+.month select {
+  background: transparent;
+  color: var(--ink);
+  max-width: 100%;
+}
+.date-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  text-align: center;
+}
+.date-grid > span {
+  font-size: 12px;
+  color: var(--muted);
+  padding-bottom: 6px;
+}
+.date {
+  min-height: clamp(40px, 4.9vw, 70px);
+  padding: 4px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.date:hover {
+  background: #eeeee6;
+}
+.date-today {
+  box-shadow: inset 0 0 0 1px #9eaa99;
+}
+.date[aria-pressed="true"] {
+  background: #303a32;
+  color: white;
+}
+.date i,
+.legend i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.date.done i,
+.dot-done {
+  background: #729067;
+}
+.date.scheduled i,
+.dot-plan {
+  background: #d45b35;
+}
+.date.missed i,
+.dot-missed {
+  border: 1px solid #929589;
+}
+.legend {
+  margin-top: 15px;
+  font-size: 11px;
+  color: #555e53;
+  gap: 14px;
+}
+.day-detail h2 {
+  margin-bottom: 16px;
+}
+.day-detail article {
+  border-top: 1px solid #cccec4;
+  padding: 13px 0;
+}
+.day-detail article p {
+  margin-top: 6px;
+}
+.mini-actions {
+  margin-top: 9px;
+}
+.entry-page {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+}
+.entry-photo {
+  position: relative;
+  min-height: 240px;
+  background: #26342f;
+}
+.entry-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+.entry-brand {
+  position: absolute;
+  left: 8%;
+  top: 8%;
+  font-size: 45px;
+  letter-spacing: -0.075em;
+  font-weight: 700;
+  color: white;
+}
+.entry-panel {
+  align-self: center;
+  padding: clamp(28px, 6vw, 100px);
+}
+.entry-panel h1 {
+  font-size: clamp(44px, 5vw, 84px);
+  line-height: 0.99;
+  letter-spacing: -0.07em;
+  margin: 18px 0 30px;
+}
+.entry-panel .form {
+  padding: 0;
+  max-width: 450px;
+}
+.entry-panel .form label span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.entry-panel .form input {
+  width: 100%;
+}
+.entry-panel .action-ink {
+  align-self: start;
+}
+.proposal {
+  border-top: 1px solid #cdd2c6;
+  margin-top: 10px;
+  padding-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+.quick-prompts {
+  align-items: stretch;
+}
+.quick-prompts button {
+  text-align: left;
+}
+.bubble p {
+  white-space: pre-wrap;
+}
+.coach-convo .form {
+  padding: 0;
+}
+@media (max-width: 700px) {
+  .view-switch button {
+    padding-inline: 10px;
+    min-height: 36px;
+    font-size: 12px;
+  }
+  .view-switch svg {
+    width: 14px;
+  }
+  .mast-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding-block: 8px;
+  }
+  .view-switch {
+    grid-column: 1/-1;
+    grid-row: 2;
+    justify-self: start;
+  }
+  .add-goal {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .calendar-layout,
+  .entry-page {
+    grid-template-columns: 1fr;
+  }
+  .entry-page {
+    grid-template-rows: 30svh 1fr;
+  }
+  .entry-photo {
+    min-height: 0;
+  }
+  .entry-panel {
+    align-self: start;
+  }
+  .today-box {
+    padding: 22px;
+  }
+  .focus-pair .today-box {
+    order: 0;
+  }
+  .plan-list {
+    margin-top: 10px;
+  }
+  .cover-story {
+    min-height: 255px;
+  }
+  .practice-buttons {
+    align-items: center;
+  }
+  .date-grid {
+    gap: 2px;
+  }
+  .month {
+    padding: 14px;
+  }
+  .calendar-layout {
+    gap: 12px;
+  }
+  .minimum {
+    font-size: 12px;
+  }
+}

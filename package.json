@@ -14,7 +14,8 @@
     "deploy": "npm run build && wrangler deploy",
     "check:bundle": "npm run build && wrangler deploy --dry-run",
     "postdeploy": "node scripts/migrate-editorial.js && npm run check:live",
-    "check:live": "node scripts/check-live.js"
+    "check:live": "node scripts/check-live.js",
+    "prebuild": "node scripts/build-goals.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.1",
@@ -22,12 +23,14 @@
     "@emdash-cms/cloudflare": "^1.3.0",
     "astro": "^7.3.2",
     "emdash": "^1.3.0",
+    "lucide-react": "1.31.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@cloudflare/workers-types": "^5.20260820.1",
+    "esbuild": "0.28.2",
     "wrangler": "^4.125.0"
   }
 }
