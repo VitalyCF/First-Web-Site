@@ -186,6 +186,7 @@
   padding-bottom: 6px;
 }
 .date {
+  text-decoration: none;
   min-height: clamp(40px, 4.9vw, 70px);
   padding: 4px;
   display: grid;
@@ -314,6 +315,9 @@
 }
 @media (max-width: 700px) {
   .view-switch button {
+    width: auto;
+    white-space: nowrap;
+    flex: 1;
     padding-inline: 10px;
     min-height: 36px;
     font-size: 12px;
@@ -327,6 +331,7 @@
     padding-block: 8px;
   }
   .view-switch {
+    width: 100%;
     grid-column: 1/-1;
     grid-row: 2;
     justify-self: start;
