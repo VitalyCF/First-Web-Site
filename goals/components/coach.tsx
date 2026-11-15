@@ -1,3 +1,4 @@
+import {Dictation} from "./dictation";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowUp,
@@ -398,7 +399,7 @@ export function Coach({
             <label className="sr-only" htmlFor="chat-message">
               Your message
             </label>
-            <textarea
+            <Dictation key={context.id} disabled={busy} append={value=>setText(old=>[old.trimEnd(),value.trim()].filter(Boolean).join(" "))}/><textarea
               id="chat-message"
               ref={input}
               maxLength={8000}

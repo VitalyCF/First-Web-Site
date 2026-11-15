@@ -4,6 +4,7 @@ import { normalizePlanner, validPlanner, type SourceNote } from "./planner";
 import {
   applyProposal,
   generate,
+  gateway,
   AIError,
   models,
   type AssistantEnv,
@@ -59,6 +60,25 @@ export async function serviceRoute(
   env: AssistantEnv,
   path: string,
 ): Promise<Response | undefined> {
+  if(path==="dictate" && request.method==="POST"){
+    const type=(request.headers.get("content-type")||"").split(";")[0];
+    const formats:Record<string,string>={"audio/mp4":"mp4","audio/webm":"webm","audio/ogg":"ogg","audio/wav":"wav"};
+    if(!Object.hasOwn(formats,type))return json({error:"unsupported_audio"},415);
+    const limit=12*1024*1024;
+    if(Number(request.headers.get("content-length"))>limit)return json({error:"too_large"},413);
+    const reader=request.body?.getReader();
+    if(!reader)return json({error:"empty_audio"},400);
+    const chunks:Uint8Array<ArrayBuffer>[]=[];let size=0;
+    while(true){const part=await reader.read();if(part.done)break;size+=part.value.length;if(size>limit){await reader.cancel();return json({error:"too_large"},413)}chunks.push(new Uint8Array(part.value))}
+    if(!size)return json({error:"empty_audio"},400);
+    const form=new FormData();
+    form.set("model","gpt-transcribe");
+    form.set("file",new Blob(chunks,{type}),"dictation."+formats[type]);
+    const response=await gateway(env,"audio/transcriptions",{method:"POST",body:form});
+    if(!response.ok)return json({error:"transcription_failed"},502);
+    const data=await response.json<{text:string}>();
+    return json({text:data.text});
+  }
   if(path==='shape-chat'&&request.method==='POST')return shapeChat(request,env);
   if (path === "ai-status" && request.method === "GET")
     return json({ provider: "OpenAI", gateway: env.OPENAI_GATEWAY_ID, models });

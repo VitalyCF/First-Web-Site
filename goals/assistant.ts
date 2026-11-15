@@ -144,7 +144,7 @@ export async function gateway(
         ...init,
         redirect: "manual",
         headers: {
-          "Content-Type": "application/json",
+          ...(init.body instanceof FormData ? {} : {"Content-Type":"application/json"}),
           "cf-aig-no-wholesale": "true",
           "cf-aig-skip-cache": "true",
           "cf-aig-collect-log-payload": "false",
