@@ -9,6 +9,7 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare({ imageService: 'passthrough' }),
   integrations: [react(), emdash({
+    migrations: { runtime: 'check', dev: 'auto' },
     database: d1({ binding: 'DB', session: 'auto', coalesce: true }),
     storage: r2({ binding: 'MEDIA' }),
   })],
