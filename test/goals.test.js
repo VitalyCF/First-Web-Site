@@ -225,6 +225,30 @@ test("private goal conversations, acceptance and year reviews preserve the journ
     const invalid = api.goalFrom(goalPlan(), 2026, "invalid");
     invalid.steps[0].date = "2026-02-30";
     assert.equal(api.validPlanner({ goals: [invalid] }), false);
+    const replanned = api.goalFrom(
+      {
+        ...goalPlan(),
+        title: "A clearer piano goal",
+        steps: [
+          {
+            title: "Book a rehearsal",
+            milestone: "Rehearse",
+            date: "2026-12-20",
+            time: "18:00",
+            minutes: 30,
+          },
+        ],
+      },
+      2026,
+      "replan",
+      existing,
+    );
+    assert.equal(replanned.title, "A clearer piano goal");
+    assert.equal(replanned.steps.length, 2);
+    assert.equal(replanned.steps[0].done, true);
+    assert.equal(replanned.steps[1].title, "Book a rehearsal");
+    assert.deepEqual(replanned.entries, existing.entries);
+    assert.deepEqual(replanned.practice, existing.practice);
     const withRoutine = api.putHabit(existing, {
       since: "2026-01-01",
       cue: "After coffee",

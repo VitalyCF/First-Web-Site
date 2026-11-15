@@ -329,6 +329,14 @@ export function Coach({
                       goals={planner.goals}
                     />
                   )}{" "}
+                  {t.proposal?.goal &&
+                    context.goalId &&
+                    !accepted.includes(t.id) && (
+                      <p className="muted draft-note">
+                        Updates the goal and replaces unfinished steps with this
+                        plan. Completed work and journal history stay intact.
+                      </p>
+                    )}
                   {(t.proposal?.goal || t.proposal?.review) && (
                     <div className="draft-actions">
                       {accepted.includes(t.id) ? (

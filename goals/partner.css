@@ -872,3 +872,9 @@
   letter-spacing: 0.08em;
   margin-bottom: 8px;
 }
+
+.draft-note {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 14px 0;
+}
